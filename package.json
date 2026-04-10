@@ -1,0 +1,50 @@
+{
+    "name": "monochrome-dew",
+    "displayName": "Monochrome Dew",
+    "description": "Monochrome Dark with restrained blue and pink-gray accents — like morning dew on gray stone. Refined syntax highlighting for C#, C++, Rust, Python, Markdown, JSON/TOML/YAML, HTML/CSS.",
+    "version": "1.0.0",
+    "publisher": "odradekk",
+    "license": "MIT",
+    "author": {
+        "name": "odradekk"
+    },
+    "engines": {
+        "vscode": "^1.75.0"
+    },
+    "categories": [
+        "Themes"
+    ],
+    "keywords": [
+        "theme",
+        "dark",
+        "monochrome",
+        "minimal",
+        "blue",
+        "rust",
+        "cpp",
+        "csharp",
+        "python"
+    ],
+    "galleryBanner": {
+        "color": "#18181c",
+        "theme": "dark"
+    },
+    "icon": "icon.png",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/odradekk/monochrome-dew.git"
+    },
+    "bugs": {
+        "url": "https://github.com/odradekk/monochrome-dew/issues"
+    },
+    "homepage": "https://github.com/odradekk/monochrome-dew#readme",
+    "contributes": {
+        "themes": [
+            {
+                "label": "Monochrome Dew",
+                "uiTheme": "vs-dark",
+                "path": "./themes/monochrome-dew-color-theme.json"
+            }
+        ]
+    }
+}
