@@ -2,6 +2,16 @@
 
 All notable changes to the **Monochrome Dew** theme will be documented in this file.
 
+## [1.0.1] - 2026-04-10
+
+### Changed
+- New circular-masked icon with transparent background
+- Simplified README Design section
+- Added language screenshots to README
+
+### Chore
+- Excluded `scripts/` and `examples/` from the published package
+
 ## [1.0.0] - 2026-04-10
 
 ### Initial release

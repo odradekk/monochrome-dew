@@ -3,3 +3,6 @@ node_modules/
 .vscode-test/
 .DS_Store
 Thumbs.db
+
+# Local development scripts (not part of the published package)
+scripts/

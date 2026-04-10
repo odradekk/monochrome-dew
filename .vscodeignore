@@ -2,5 +2,9 @@
 .vscode-test/**
 .gitignore
 .git/**
+.github/**
+scripts/**
+examples/**
 **/*.map
+**/*.vsix
 node_modules/**
