@@ -1,9 +1,8 @@
 # Monochrome Dew
 
-[![Version](https://img.shields.io/visual-studio-marketplace/v/odradekk.monochrome-dew?style=flat-square&label=Marketplace&color=18181c)](https://marketplace.visualstudio.com/items?itemName=odradekk.monochrome-dew)
-[![Installs](https://img.shields.io/visual-studio-marketplace/i/odradekk.monochrome-dew?style=flat-square&color=8a9dbc)](https://marketplace.visualstudio.com/items?itemName=odradekk.monochrome-dew)
-[![Rating](https://img.shields.io/visual-studio-marketplace/r/odradekk.monochrome-dew?style=flat-square&color=b0969c)](https://marketplace.visualstudio.com/items?itemName=odradekk.monochrome-dew&ssr=false#review-details)
-[![Open VSX](https://img.shields.io/open-vsx/v/odradekk/monochrome-dew?style=flat-square&label=Open%20VSX&color=18181c)](https://open-vsx.org/extension/odradekk/monochrome-dew)
+[![Version](https://img.shields.io/github/v/tag/odradekk/monochrome-dew?style=flat-square&label=version&color=18181c&sort=semver)](https://github.com/odradekk/monochrome-dew/releases)
+[![VS Marketplace](https://img.shields.io/badge/VS%20Code-Marketplace-8a9dbc?style=flat-square&logo=visualstudiocode&logoColor=c8cdd6)](https://marketplace.visualstudio.com/items?itemName=odradekk.monochrome-dew)
+[![Open VSX](https://img.shields.io/open-vsx/v/odradekk/monochrome-dew?style=flat-square&label=Open%20VSX&color=b0969c)](https://open-vsx.org/extension/odradekk/monochrome-dew)
 [![License](https://img.shields.io/github/license/odradekk/monochrome-dew?style=flat-square&color=8d8d8d)](./LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/odradekk/monochrome-dew?style=flat-square&color=c8cdd6)](https://github.com/odradekk/monochrome-dew/stargazers)
 
