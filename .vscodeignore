@@ -4,6 +4,7 @@
 .git/**
 .github/**
 AGENTS.md
+RELEASING.md
 scripts/**
 examples/**
 generated-images/**
