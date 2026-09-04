@@ -78,7 +78,7 @@ ovsx install odradekk.monochrome-dew
 Download from [Releases](https://github.com/odradekk/monochrome-dew/releases):
 
 ```bash
-code --install-extension monochrome-dew-1.0.1.vsix
+code --install-extension monochrome-dew-1.1.0.vsix
 ```
 
 ---
