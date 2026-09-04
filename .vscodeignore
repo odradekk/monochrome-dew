@@ -3,8 +3,10 @@
 .gitignore
 .git/**
 .github/**
+AGENTS.md
 scripts/**
 examples/**
+generated-images/**
 **/*.map
 **/*.vsix
 node_modules/**

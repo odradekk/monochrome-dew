@@ -6,3 +6,4 @@ Thumbs.db
 
 # Local development scripts (not part of the published package)
 scripts/
+generated-images/
