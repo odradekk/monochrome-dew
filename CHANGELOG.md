@@ -2,6 +2,15 @@
 
 All notable changes to the **Monochrome Dew** theme will be documented in this file.
 
+## [1.1.0] - 2026-09-04
+
+### Changed
+- Replaced the extension icon with a new minimal dew-drop design
+- Deepened all static workbench surfaces from `#18181c` to a uniform `#111113` while preserving interactive-state contrast
+- Increased the contrast of ordinary variables and comment text without brightening structural punctuation
+- Added restrained bold emphasis for control flow, structural declarations, and declaration names in C#, C++, Rust, and Python
+- Corrected language-qualified semantic token selectors to use VS Code's `:language` syntax
+
 ## [1.0.1] - 2026-04-10
 
 ### Changed

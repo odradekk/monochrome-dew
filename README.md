@@ -1,6 +1,6 @@
 # Monochrome Dew
 
-[![Version](https://img.shields.io/github/v/tag/odradekk/monochrome-dew?style=flat-square&label=version&color=18181c&sort=semver)](https://github.com/odradekk/monochrome-dew/releases)
+[![Version](https://img.shields.io/github/v/tag/odradekk/monochrome-dew?style=flat-square&label=version&color=111113&sort=semver)](https://github.com/odradekk/monochrome-dew/releases)
 [![VS Marketplace](https://img.shields.io/badge/VS%20Code-Marketplace-8a9dbc?style=flat-square&logo=visualstudiocode&logoColor=c8cdd6)](https://marketplace.visualstudio.com/items?itemName=odradekk.monochrome-dew)
 [![Open VSX](https://img.shields.io/open-vsx/v/odradekk/monochrome-dew?style=flat-square&label=Open%20VSX&color=b0969c)](https://open-vsx.org/extension/odradekk/monochrome-dew)
 [![License](https://img.shields.io/github/license/odradekk/monochrome-dew?style=flat-square&color=8d8d8d)](./LICENSE)
@@ -33,7 +33,7 @@
 
 ## Design
 
-Three color families on a near-black base (`#18181c`):
+Three color families on a uniform near-black base (`#111113`):
 
 | Role | Color | Used for |
 |------|-------|----------|
@@ -42,6 +42,8 @@ Three color families on a near-black base (`#18181c`):
 | **Neutral** | gray `#555555` → `#aaaaaa` | variables, operators, comments |
 
 Both accent families sit at ~15% saturation, reading as "tinted gray" rather than color — quiet semantic hints, not decoration.
+
+Readable neutral text uses stronger contrast (`#7c7c7c` for ordinary variables and `#5c687c` for comments), while punctuation and markup remain deliberately dim. Control-flow and structural declaration keywords are bold in C#, C++, Rust, and Python. Type, callable, and precisely identified constant names are bold only at their declaration or definition.
 
 ---
 

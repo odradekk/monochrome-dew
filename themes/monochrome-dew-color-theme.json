@@ -2,8 +2,8 @@
     "name": "Monochrome Dew",
     "type": "dark",
     "colors": {
-        "activityBar.activeBorder": "#18181c",
-        "activityBar.background": "#18181c",
+        "activityBar.activeBorder": "#111113",
+        "activityBar.background": "#111113",
         "activityBar.border": "#22222a",
         "activityBar.foreground": "#b4b4b4",
         "activityBar.inactiveForeground": "#444444",
@@ -28,10 +28,10 @@
         "debugIcon.stepOutForeground": "#8d8d8d",
         "debugIcon.stepOverForeground": "#8d8d8d",
         "debugIcon.stopForeground": "#b0969c",
-        "debugToolBar.background": "#18181c",
-        "dropdown.background": "#18181c",
+        "debugToolBar.background": "#111113",
+        "dropdown.background": "#111113",
         "dropdown.foreground": "#8d8d8d",
-        "editor.background": "#18181c",
+        "editor.background": "#111113",
         "editor.findMatchBackground": "#18181c",
         "editor.findMatchBorder": "#8a9dbc",
         "editor.findMatchHighlightBackground": "#18181c",
@@ -46,7 +46,9 @@
         "editorCursor.foreground": "#aaaaaa",
         "editorError.foreground": "#c08a90",
         "editorGroup.border": "#22222a",
-        "editorGroupHeader.tabsBackground": "#18181c",
+        "editorGroup.emptyBackground": "#111113",
+        "editorGroupHeader.noTabsBackground": "#111113",
+        "editorGroupHeader.tabsBackground": "#111113",
         "editorGroupHeader.tabsBorder": "#22222a",
         "editorIndentGuide.activeBackground": "#454545",
         "editorIndentGuide.background": "#2a2a34",
@@ -61,8 +63,8 @@
         "editorSuggestWidget.highlightForeground": "#9ab0cc",
         "editorWarning.foreground": "#c4a888",
         "editorWhitespace.foreground": "#2e2e38",
-        "editorWidget.background": "#18181c",
-        "editorHoverWidget.statusBarBackground": "#18181c",
+        "editorWidget.background": "#111113",
+        "editorHoverWidget.statusBarBackground": "#111113",
         "focusBorder": "#18181c",
         "gitDecoration.ignoredResourceForeground": "#323232",
         "gitDecoration.addedResourceForeground": "#8a9dbc",
@@ -72,7 +74,7 @@
         "gitDecoration.conflictingResourceForeground": "#c4a888",
         "gitDecoration.submoduleResourceForeground": "#626262",
         "icon.foreground": "#404040",
-        "input.background": "#18181c",
+        "input.background": "#111113",
         "input.border": "#18181c",
         "input.foreground": "#8d8d8d",
         "list.activeSelectionBackground": "#22222a",
@@ -84,21 +86,22 @@
         "list.hoverBackground": "#18181c",
         "list.inactiveSelectionBackground": "#18181c",
         "list.inactiveSelectionForeground": "#b4b4b4",
-        "listFilterWidget.background": "#18181c",
+        "listFilterWidget.background": "#111113",
         "listFilterWidget.outline": "#444444",
-        "menu.background": "#18181c",
+        "menu.background": "#111113",
         "menu.foreground": "#8d8d8d",
         "menubar.selectionBackground": "#22222a",
+        "panel.background": "#111113",
         "panel.border": "#22222a",
         "panelTitle.activeBorder": "#18181c",
         "panelTitle.activeForeground": "#b4b4b4",
         "panelTitle.inactiveForeground": "#444444",
         "peekView.border": "#404040",
-        "peekViewEditor.background": "#18181c",
+        "peekViewEditor.background": "#111113",
         "peekViewEditor.matchHighlightBackground": "#18181c",
         "peekViewEditor.matchHighlightBorder": "#444444",
-        "peekViewEditorGutter.background": "#18181c",
-        "peekViewResult.background": "#1d1d22",
+        "peekViewEditorGutter.background": "#111113",
+        "peekViewResult.background": "#111113",
         "peekViewResult.fileForeground": "#939393",
         "peekViewResult.lineForeground": "#444444",
         "peekViewResult.matchHighlightBackground": "#272730",
@@ -107,7 +110,7 @@
         "pickerGroup.foreground": "#979797",
         "progressBar.background": "#8a9dbc",
         "sash.hoverBorder": "#272730",
-        "scrollbar.shadow": "#18181c",
+        "scrollbar.shadow": "#111113",
         "scrollbarSlider.activeBackground": "#ebebeb0f",
         "scrollbarSlider.background": "#ebebeb0f",
         "scrollbarSlider.hoverBackground": "#ebebeb0f",
@@ -115,18 +118,18 @@
         "settings.dropdownBorder": "#22222a",
         "settings.modifiedItemIndicator": "#b0969c",
         "settings.textInputBorder": "#22222a",
-        "sideBar.background": "#18181c",
+        "sideBar.background": "#111113",
         "sideBar.border": "#22222a",
         "sideBar.foreground": "#626262",
-        "sideBarSectionHeader.background": "#18181c",
+        "sideBarSectionHeader.background": "#111113",
         "sideBarSectionHeader.border": "#22222a",
-        "statusBar.background": "#18181c",
+        "statusBar.background": "#111113",
         "statusBar.border": "#22222a",
-        "statusBar.debuggingBackground": "#18181c",
+        "statusBar.debuggingBackground": "#111113",
         "statusBar.debuggingBorder": "#22222a",
         "statusBar.debuggingForeground": "#8d8d8d",
         "statusBar.foreground": "#8d8d8d",
-        "statusBar.noFolderBackground": "#18181c",
+        "statusBar.noFolderBackground": "#111113",
         "statusBar.noFolderBorder": "#22222a",
         "statusBar.noFolderForeground": "#8d8d8d",
         "statusBarItem.activeBackground": "#18181c",
@@ -165,8 +168,9 @@
         "symbolIcon.unitForeground": "#8d8d8d",
         "symbolIcon.variableForeground": "#8d8d8d",
         "tab.activeForeground": "#b4b4b4",
-        "tab.border": "#18181c",
-        "tab.inactiveBackground": "#18181c",
+        "tab.activeBackground": "#111113",
+        "tab.border": "#111113",
+        "tab.inactiveBackground": "#111113",
         "tab.inactiveForeground": "#444444",
         "tab.activeModifiedBorder": "#b0969c",
         "terminal.ansiBrightBlack": "#555555",
@@ -177,7 +181,7 @@
         "terminal.ansiBrightMagenta": "#a08a9a",
         "terminal.ansiBrightYellow": "#c4a888",
         "terminal.ansiBrightWhite": "#ebebeb",
-        "terminal.ansiBlack": "#18181c",
+        "terminal.ansiBlack": "#111113",
         "terminal.ansiBlue": "#7b8fad",
         "terminal.ansiGreen": "#688a70",
         "terminal.ansiCyan": "#688a98",
@@ -185,17 +189,17 @@
         "terminal.ansiMagenta": "#907a8a",
         "terminal.ansiYellow": "#b89a70",
         "terminal.ansiWhite": "#bfbfbf",
-        "terminal.background": "#18181c",
+        "terminal.background": "#111113",
         "terminal.foreground": "#939393",
-        "terminalCursor.background": "#18181c",
+        "terminalCursor.background": "#111113",
         "terminalCursor.foreground": "#aaaaaa",
         "textLink.activeForeground": "#9ab0cc",
         "textLink.foreground": "#8a9dbc",
         "textPreformat.foreground": "#8d8d8d",
-        "titleBar.activeBackground": "#18181c",
+        "titleBar.activeBackground": "#111113",
         "titleBar.activeForeground": "#8d8d8d",
         "titleBar.border": "#22222a",
-        "titleBar.inactiveBackground": "#18181c",
+        "titleBar.inactiveBackground": "#111113",
         "tree.indentGuidesStroke": "#212121",
         "window.activeBorder": "#22222a",
         "listFilterWidget.noMatchesOutline": "#b0969c",
@@ -211,7 +215,11 @@
             "settings": { "foreground": "#aaaaaa" }
         },
         {
-            "scope": "comment, punctuation.definition.comment",
+            "scope": "comment",
+            "settings": { "foreground": "#5c687c" }
+        },
+        {
+            "scope": "punctuation.definition.comment",
             "settings": { "foreground": "#4a5568" }
         },
         {
@@ -228,7 +236,7 @@
         },
         {
             "scope": "variable",
-            "settings": { "foreground": "#707070" }
+            "settings": { "foreground": "#7c7c7c" }
         },
         {
             "scope": "entity.name.function, meta.require, support.function.any-method",
@@ -436,7 +444,7 @@
         {
             "name": "Markdown blockquote text",
             "scope": "markup.quote.markdown",
-            "settings": { "foreground": "#707070" }
+            "settings": { "foreground": "#7c7c7c" }
         },
         {
             "name": "Markdown blockquote punctuation (>)",
@@ -551,8 +559,15 @@
         // =============================================================
         {
             "name": "C# Type declarations (class, struct, enum, interface, delegate)",
-            "scope": "entity.name.type",
-            "settings": { "foreground": "#bec5d0" }
+            "scope": [
+                "entity.name.type.class.cs",
+                "entity.name.type.delegate.cs",
+                "entity.name.type.enum.cs",
+                "entity.name.type.interface.cs",
+                "entity.name.type.struct.cs",
+                "entity.name.type.union.cs"
+            ],
+            "settings": { "foreground": "#bec5d0", "fontStyle": "bold" }
         },
         {
             "name": "C# Type references",
@@ -583,10 +598,24 @@
         {
             "name": "C# Control flow (if, else, for, while, return, switch, etc.)",
             "scope": [
-                "keyword.control",
-                "keyword.operator.conditional"
+                "source.cs keyword.control",
+                "source.cs keyword.operator.conditional"
             ],
-            "settings": { "foreground": "#7b8fad" }
+            "settings": { "foreground": "#7b8fad", "fontStyle": "bold" }
+        },
+        {
+            "name": "C# Structural declaration keywords",
+            "scope": [
+                "storage.type.namespace.cs",
+                "storage.type.class.cs",
+                "storage.type.record.cs",
+                "storage.type.delegate.cs",
+                "storage.type.enum.cs",
+                "storage.type.interface.cs",
+                "storage.type.struct.cs",
+                "storage.type.union.cs"
+            ],
+            "settings": { "foreground": "#7b8fad", "fontStyle": "bold" }
         },
         {
             "name": "C# LINQ query keywords (from, where, select, orderby, etc.)",
@@ -619,6 +648,11 @@
             "settings": { "foreground": "#728aaa" }
         },
         {
+            "name": "C# enum member declarations",
+            "scope": "entity.name.variable.enum-member.cs",
+            "settings": { "foreground": "#b89aa2", "fontStyle": "bold" }
+        },
+        {
             "name": "C# Property accessors (get, set, add, remove)",
             "scope": [
                 "keyword.other.get",
@@ -640,7 +674,7 @@
                 "variable.other.alias",
                 "entity.name.variable"
             ],
-            "settings": { "foreground": "#8d8d8d" }
+            "settings": { "foreground": "#7c7c7c" }
         },
         {
             "name": "C# Local variables & property access",
@@ -648,7 +682,7 @@
                 "variable.other.object.property",
                 "entity.name.variable.local"
             ],
-            "settings": { "foreground": "#787878" }
+            "settings": { "foreground": "#7c7c7c" }
         },
 
         // =============================================================
@@ -701,7 +735,7 @@
         {
             "name": "C# XML doc comment text",
             "scope": "comment.block.documentation",
-            "settings": { "foreground": "#5a6a7a" }
+            "settings": { "foreground": "#5c687c" }
         },
         {
             "name": "C# XML doc tags & attributes",
@@ -735,13 +769,22 @@
         },
         {
             "name": "C++ class/struct/enum/union keyword",
-            "scope": "storage.type.cpp",
-            "settings": { "foreground": "#7b8fad" }
+            "scope": [
+                "storage.type.class.cpp",
+                "storage.type.class.declare.cpp",
+                "storage.type.struct.cpp",
+                "storage.type.struct.declare.cpp",
+                "storage.type.enum.cpp",
+                "storage.type.enum.declare.cpp",
+                "storage.type.union.cpp",
+                "storage.type.union.declare.cpp"
+            ],
+            "settings": { "foreground": "#7b8fad", "fontStyle": "bold" }
         },
         {
             "name": "C++ template keyword",
             "scope": "storage.type.template.cpp",
-            "settings": { "foreground": "#6a7d99" }
+            "settings": { "foreground": "#6a7d99", "fontStyle": "bold" }
         },
         {
             "name": "C++ class/struct name declarations",
@@ -749,12 +792,12 @@
                 "entity.name.type.class.cpp",
                 "entity.name.type.struct.cpp"
             ],
-            "settings": { "foreground": "#bec5d0" }
+            "settings": { "foreground": "#bec5d0", "fontStyle": "bold" }
         },
         {
             "name": "C++ enum name",
             "scope": "entity.name.type.enum.cpp",
-            "settings": { "foreground": "#9ab0cc" }
+            "settings": { "foreground": "#9ab0cc", "fontStyle": "bold" }
         },
         {
             "name": "C++ namespace name",
@@ -772,7 +815,7 @@
         {
             "name": "C++ typedef / type alias (using = )",
             "scope": "entity.name.type.alias.cpp",
-            "settings": { "foreground": "#9ab0cc" }
+            "settings": { "foreground": "#9ab0cc", "fontStyle": "bold" }
         },
 
         // =============================================================
@@ -813,7 +856,7 @@
         {
             "name": "C++ control flow (if/else/for/while/return/switch/case/break/continue/goto)",
             "scope": "keyword.control.cpp",
-            "settings": { "foreground": "#7b8fad" }
+            "settings": { "foreground": "#7b8fad", "fontStyle": "bold" }
         },
         {
             "name": "C++ new/delete",
@@ -858,22 +901,27 @@
         // C++ 细化：函数
         // =============================================================
         {
-            "name": "C++ function name",
-            "scope": "entity.name.function.cpp",
-            "settings": { "foreground": "#728aaa" }
+            "name": "C++ function definition",
+            "scope": "entity.name.function.definition.cpp",
+            "settings": { "foreground": "#728aaa", "fontStyle": "bold" }
         },
         {
             "name": "C++ operator overload (operator+, operator<<)",
             "scope": [
-                "entity.name.function.operator.cpp",
-                "entity.name.function.operator.member.cpp"
+                "meta.function.definition.cpp entity.name.function.operator.cpp",
+                "meta.function.definition.cpp entity.name.function.operator.member.cpp"
             ],
-            "settings": { "foreground": "#8a9dbc" }
+            "settings": { "foreground": "#8a9dbc", "fontStyle": "bold" }
         },
         {
             "name": "C++ destructor (~ClassName)",
-            "scope": "entity.name.function.destructor.cpp",
-            "settings": { "foreground": "#728aaa" }
+            "scope": "meta.function.definition.cpp entity.name.function.destructor.cpp",
+            "settings": { "foreground": "#728aaa", "fontStyle": "bold" }
+        },
+        {
+            "name": "C++ enum member declarations",
+            "scope": "variable.other.enummember.cpp",
+            "settings": { "foreground": "#b89aa2", "fontStyle": "bold" }
         },
 
         // =============================================================
@@ -918,7 +966,7 @@
         {
             "name": "C++ local/other variable",
             "scope": "variable.other.cpp",
-            "settings": { "foreground": "#8d8d8d" }
+            "settings": { "foreground": "#7c7c7c" }
         },
 
         // =============================================================
@@ -992,12 +1040,12 @@
         {
             "name": "Rust control flow (if/else/for/while/loop/match/return/break/continue)",
             "scope": "keyword.control.rust",
-            "settings": { "foreground": "#7b8fad" }
+            "settings": { "foreground": "#7b8fad", "fontStyle": "bold" }
         },
         {
             "name": "Rust fn keyword",
             "scope": "keyword.other.fn.rust",
-            "settings": { "foreground": "#728aaa" }
+            "settings": { "foreground": "#728aaa", "fontStyle": "bold" }
         },
         {
             "name": "Rust unsafe",
@@ -1020,6 +1068,16 @@
             ],
             "settings": { "foreground": "#7b8fad" }
         },
+        {
+            "name": "Rust structural declaration keywords",
+            "scope": [
+                "keyword.declaration.type.rust",
+                "keyword.declaration.enum.rust",
+                "keyword.declaration.trait.rust",
+                "keyword.declaration.struct.rust"
+            ],
+            "settings": { "foreground": "#7b8fad", "fontStyle": "bold" }
+        },
 
         // =============================================================
         // Rust 细化：类型
@@ -1030,9 +1088,18 @@
             "settings": { "foreground": "#9ab0cc" }
         },
         {
+            "name": "Rust type declarations",
+            "scope": [
+                "entity.name.type.struct.rust",
+                "entity.name.type.enum.rust",
+                "entity.name.type.declaration.rust"
+            ],
+            "settings": { "foreground": "#9ab0cc", "fontStyle": "bold" }
+        },
+        {
             "name": "Rust trait name",
             "scope": "entity.name.type.trait.rust",
-            "settings": { "foreground": "#8aa0bf" }
+            "settings": { "foreground": "#8aa0bf", "fontStyle": "bold italic" }
         },
         {
             "name": "Rust module name",
@@ -1047,6 +1114,11 @@
             "name": "Rust function name",
             "scope": "entity.name.function.rust",
             "settings": { "foreground": "#728aaa" }
+        },
+        {
+            "name": "Rust function declarations",
+            "scope": "meta.function.definition.rust entity.name.function.rust",
+            "settings": { "foreground": "#728aaa", "fontStyle": "bold" }
         },
         {
             "name": "Rust macro invocation (println!, vec!, etc.)",
@@ -1151,7 +1223,7 @@
         {
             "name": "Python control flow (if/elif/else/for/while/try/except/finally/with/return/yield/raise/break/continue/pass)",
             "scope": "keyword.control.flow.python",
-            "settings": { "foreground": "#7b8fad" }
+            "settings": { "foreground": "#7b8fad", "fontStyle": "bold" }
         },
         {
             "name": "Python import keywords (import, from, as)",
@@ -1162,12 +1234,12 @@
             "settings": { "foreground": "#6a7d99" }
         },
         {
-            "name": "Python def/class/lambda",
+            "name": "Python def/class",
             "scope": [
                 "storage.type.function.python",
                 "storage.type.class.python"
             ],
-            "settings": { "foreground": "#7b8fad" }
+            "settings": { "foreground": "#7b8fad", "fontStyle": "bold" }
         },
         {
             "name": "Python async/await",
@@ -1176,6 +1248,11 @@
                 "keyword.control.flow.await.python"
             ],
             "settings": { "foreground": "#8a9dbc" }
+        },
+        {
+            "name": "Python await control flow",
+            "scope": "keyword.control.flow.await.python",
+            "settings": { "foreground": "#8a9dbc", "fontStyle": "bold" }
         },
         {
             "name": "Python logical operators (and, or, not, in, is)",
@@ -1194,12 +1271,12 @@
         {
             "name": "Python function name (def foo)",
             "scope": "entity.name.function.python",
-            "settings": { "foreground": "#728aaa" }
+            "settings": { "foreground": "#728aaa", "fontStyle": "bold" }
         },
         {
             "name": "Python class name (class Foo)",
             "scope": "entity.name.type.class.python",
-            "settings": { "foreground": "#9ab0cc" }
+            "settings": { "foreground": "#9ab0cc", "fontStyle": "bold" }
         },
         {
             "name": "Python inherited class (class Foo(Bar))",
@@ -1563,6 +1640,11 @@
         {
             "name": "HTML comment",
             "scope": "comment.block.html",
+            "settings": { "foreground": "#5c687c" }
+        },
+        {
+            "name": "HTML comment markers",
+            "scope": "comment.block.html punctuation.definition.comment",
             "settings": { "foreground": "#4a5568" }
         },
 
@@ -1674,14 +1756,14 @@
         "method.static": { "foreground": "#728aaa", "fontStyle": "underline" },
         "property": "#8d8d8d",
         "property.static": { "foreground": "#8d8d8d", "fontStyle": "underline" },
-        "field": "#787878",
-        "field.static": { "foreground": "#787878", "fontStyle": "underline" },
+        "field": "#7c7c7c",
+        "field.static": { "foreground": "#7c7c7c", "fontStyle": "underline" },
         "event": "#8a9dbc",
         "enumMember": "#b89aa2",
 
         // 变量
         "parameter": "#8d8d8d",
-        "variable": "#8d8d8d",
+        "variable": "#7c7c7c",
         "variable.readonly": "#939393",
 
         // 关键字
@@ -1698,137 +1780,210 @@
         // C++ 语义着色 (clangd 提供)
         // =============================================================
         // 类型
-        "class.cpp": "#9ab0cc",
-        "struct.cpp": "#9ab0cc",
-        "enum.cpp": "#9ab0cc",
-        "typeAlias.cpp": "#9ab0cc",
-        "namespace.cpp": "#6a7d99",
-        "typeParameter.cpp": { "foreground": "#8299b3", "fontStyle": "italic" },
-        "concept.cpp": { "foreground": "#8aa0bf", "fontStyle": "italic" },
+        "class:cpp": "#9ab0cc",
+        "struct:cpp": "#9ab0cc",
+        "enum:cpp": "#9ab0cc",
+        "typeAlias:cpp": "#9ab0cc",
+        "namespace:cpp": "#6a7d99",
+        "typeParameter:cpp": { "foreground": "#8299b3", "fontStyle": "italic" },
+        "concept:cpp": { "foreground": "#8aa0bf", "fontStyle": "italic" },
 
         // 函数
-        "function.cpp": "#728aaa",
-        "function.static.cpp": { "foreground": "#728aaa", "fontStyle": "underline" },
-        "method.cpp": "#728aaa",
-        "method.static.cpp": { "foreground": "#728aaa", "fontStyle": "underline" },
-        "method.virtual.cpp": { "foreground": "#8a9dbc" },
-        "macro.cpp": "#6a7d99",
+        "function:cpp": "#728aaa",
+        "function.static:cpp": { "foreground": "#728aaa", "fontStyle": "underline" },
+        "method:cpp": "#728aaa",
+        "method.static:cpp": { "foreground": "#728aaa", "fontStyle": "underline" },
+        "method.virtual:cpp": { "foreground": "#8a9dbc" },
+        "macro:cpp": "#6a7d99",
 
         // 变量
-        "variable.cpp": "#8d8d8d",
-        "variable.readonly.cpp": "#939393",
-        "variable.static.cpp": { "foreground": "#8d8d8d", "fontStyle": "underline" },
-        "parameter.cpp": "#8d8d8d",
-        "property.cpp": "#858585",
-        "property.static.cpp": { "foreground": "#858585", "fontStyle": "underline" },
-        "enumMember.cpp": "#b89aa2",
+        "variable:cpp": "#7c7c7c",
+        "variable.readonly:cpp": "#939393",
+        "variable.static:cpp": { "foreground": "#7c7c7c", "fontStyle": "underline" },
+        "parameter:cpp": "#8d8d8d",
+        "property:cpp": "#858585",
+        "property.static:cpp": { "foreground": "#858585", "fontStyle": "underline" },
+        "enumMember:cpp": "#b89aa2",
 
         // =============================================================
         // Rust 语义着色 (rust-analyzer 提供)
         // =============================================================
 
         // ---- 类型 ----
-        "struct.rust": "#9ab0cc",
-        "enum.rust": "#9ab0cc",
-        "union.rust": "#9ab0cc",
-        "typeAlias.rust": "#9ab0cc",
-        "builtinType.rust": "#8299b3",
-        "trait.rust": { "foreground": "#8aa0bf", "fontStyle": "italic" },
-        "typeParameter.rust": { "foreground": "#8299b3", "fontStyle": "italic" },
-        "selfTypeKeyword.rust": "#9ab0cc",
+        "struct:rust": "#9ab0cc",
+        "enum:rust": "#9ab0cc",
+        "union:rust": "#9ab0cc",
+        "typeAlias:rust": "#9ab0cc",
+        "builtinType:rust": "#8299b3",
+        "trait:rust": { "foreground": "#8aa0bf", "fontStyle": "italic" },
+        "typeParameter:rust": { "foreground": "#8299b3", "fontStyle": "italic" },
+        "selfTypeKeyword:rust": "#9ab0cc",
 
         // ---- 模块 ----
-        "namespace.rust": "#6a7d99",
-        "namespace.library.rust": "#5e7088",
+        "namespace:rust": "#6a7d99",
+        "namespace.library:rust": "#5e7088",
 
         // ---- 函数 ----
-        "function.rust": "#728aaa",
-        "function.public.rust": "#728aaa",
-        "function.unsafe.rust": { "foreground": "#8a9dbc", "fontStyle": "bold" },
-        "method.rust": "#728aaa",
-        "method.public.rust": "#728aaa",
-        "method.unsafe.rust": { "foreground": "#8a9dbc", "fontStyle": "bold" },
-        "method.static.rust": { "foreground": "#728aaa", "fontStyle": "underline" },
+        "function:rust": "#728aaa",
+        "function.public:rust": "#728aaa",
+        "function.unsafe:rust": { "foreground": "#8a9dbc", "fontStyle": "bold" },
+        "method:rust": "#728aaa",
+        "method.public:rust": "#728aaa",
+        "method.unsafe:rust": { "foreground": "#8a9dbc", "fontStyle": "bold" },
+        "method.static:rust": { "foreground": "#728aaa", "fontStyle": "underline" },
 
         // ---- 宏 ----
-        "macro.rust": { "foreground": "#6a7d99", "fontStyle": "bold" },
-        "derive.rust": "#5e7088",
-        "attribute.rust": "#5e7088",
+        "macro:rust": { "foreground": "#6a7d99", "fontStyle": "bold" },
+        "derive:rust": "#5e7088",
+        "attribute:rust": "#5e7088",
 
         // ---- 变量（不可变）----
-        "variable.rust": "#8d8d8d",
-        "variable.declaration.rust": "#8d8d8d",
-        "variable.readonly.rust": "#939393",
-        "variable.static.rust": { "foreground": "#939393", "fontStyle": "underline" },
-        "variable.constant.rust": "#939393",
+        "variable:rust": "#7c7c7c",
+        "variable.declaration:rust": "#7c7c7c",
+        "variable.readonly:rust": "#939393",
+        "variable.static:rust": { "foreground": "#939393", "fontStyle": "underline" },
+        "variable.constant:rust": "#939393",
 
         // ---- 变量（可变）—— 粉灰色调提醒 ----
-        "variable.mutable.rust": "#a08a90",
-        "variable.mutable.declaration.rust": "#a08a90",
-        "variable.mutable.reference.rust": "#a08a90",
+        "variable.mutable:rust": "#a08a90",
+        "variable.mutable.declaration:rust": "#a08a90",
+        "variable.mutable.reference:rust": "#a08a90",
 
         // ---- 参数 ----
-        "parameter.rust": "#8d8d8d",
-        "parameter.declaration.rust": "#8d8d8d",
-        "parameter.mutable.rust": "#a08a90",
-        "parameter.mutable.declaration.rust": "#a08a90",
+        "parameter:rust": "#8d8d8d",
+        "parameter.declaration:rust": "#8d8d8d",
+        "parameter.mutable:rust": "#a08a90",
+        "parameter.mutable.declaration:rust": "#a08a90",
 
         // ---- self ----
-        "selfKeyword.rust": "#9a848c",
-        "selfKeyword.reference.rust": "#9a848c",
-        "selfKeyword.declaration.rust": "#9a848c",
-        "selfKeyword.mutable.rust": "#a08a90",
-        "selfKeyword.mutable.reference.rust": "#a08a90",
+        "selfKeyword:rust": "#9a848c",
+        "selfKeyword.reference:rust": "#9a848c",
+        "selfKeyword.declaration:rust": "#9a848c",
+        "selfKeyword.mutable:rust": "#a08a90",
+        "selfKeyword.mutable.reference:rust": "#a08a90",
 
         // ---- 字段 ----
-        "property.rust": "#858585",
-        "property.public.rust": "#858585",
+        "property:rust": "#858585",
+        "property.public:rust": "#858585",
 
         // ---- 枚举变体 ----
-        "enumMember.rust": "#b89aa2",
+        "enumMember:rust": "#b89aa2",
 
         // ---- 生命周期 ----
-        "lifetime.rust": "#907a82",
-        "lifetime.declaration.rust": "#907a82",
+        "lifetime:rust": "#907a82",
+        "lifetime.declaration:rust": "#907a82",
 
         // ---- 字面量 ----
-        "boolean.rust": "#9a848c",
-        "number.rust": "#b89aa2",
-        "string.rust": "#b0969c",
-        "charLiteral.rust": "#baa0a6",
-        "escapeSequence.rust": "#6a5a60",
-        "formatSpecifier.rust": "#907a82",
+        "boolean:rust": "#9a848c",
+        "number:rust": "#b89aa2",
+        "string:rust": "#b0969c",
+        "charLiteral:rust": "#baa0a6",
+        "escapeSequence:rust": "#6a5a60",
+        "formatSpecifier:rust": "#907a82",
 
         // =============================================================
         // Python 语义着色 (Pylance 提供)
         // =============================================================
 
         // 类型
-        "class.python": "#9ab0cc",
-        "class.builtin.python": "#8299b3",
-        "type.python": "#9ab0cc",
-        "typeParameter.python": { "foreground": "#8299b3", "fontStyle": "italic" },
+        "class:python": "#9ab0cc",
+        "class.builtin:python": "#8299b3",
+        "type:python": "#9ab0cc",
+        "typeParameter:python": { "foreground": "#8299b3", "fontStyle": "italic" },
 
         // 函数
-        "function.python": "#728aaa",
-        "function.builtin.python": "#8a9dbc",
-        "function.magic.python": "#6a7d99",
-        "function.decorator.python": "#5e7088",
-        "method.python": "#728aaa",
+        "function:python": "#728aaa",
+        "function.builtin:python": "#8a9dbc",
+        "function.magic:python": "#6a7d99",
+        "function.decorator:python": "#5e7088",
+        "method:python": "#728aaa",
 
         // 变量
-        "variable.python": "#8d8d8d",
-        "variable.readonly.python": "#939393",
-        "parameter.python": "#8d8d8d",
-        "selfParameter.python": "#9a848c",
-        "clsParameter.python": "#9a848c",
-        "property.python": "#858585",
+        "variable:python": "#7c7c7c",
+        "variable.readonly:python": "#939393",
+        "parameter:python": "#8d8d8d",
+        "selfParameter:python": "#9a848c",
+        "clsParameter:python": "#9a848c",
+        "property:python": "#858585",
 
         // 模块
-        "module.python": "#6a7d99",
-        "builtinConstant.python": "#9a848c",
+        "module:python": "#6a7d99",
+        "builtinConstant:python": "#9a848c",
 
         // 关键字
-        "keyword.python": "#7b8fad"
+        "keyword:python": "#7b8fad",
+
+        // =============================================================
+        // 声明锚点（仅声明/定义位置）
+        // =============================================================
+
+        // C#
+        "controlKeyword:csharp": { "foreground": "#7b8fad", "bold": true },
+        "class.declaration:csharp": { "bold": true },
+        "class.definition:csharp": { "bold": true },
+        "struct.declaration:csharp": { "bold": true },
+        "struct.definition:csharp": { "bold": true },
+        "interface.declaration:csharp": { "bold": true },
+        "interface.definition:csharp": { "bold": true },
+        "enum.declaration:csharp": { "bold": true },
+        "enum.definition:csharp": { "bold": true },
+        "delegate.declaration:csharp": { "bold": true },
+        "delegate.definition:csharp": { "bold": true },
+        "function.declaration:csharp": { "bold": true },
+        "function.definition:csharp": { "bold": true },
+        "method.declaration:csharp": { "bold": true },
+        "method.definition:csharp": { "bold": true },
+        "constant.declaration:csharp": { "bold": true },
+        "constant.definition:csharp": { "bold": true },
+        "enumMember.declaration:csharp": { "bold": true },
+        "enumMember.definition:csharp": { "bold": true },
+
+        // C++
+        "class.declaration:cpp": { "bold": true },
+        "class.definition:cpp": { "bold": true },
+        "struct.declaration:cpp": { "bold": true },
+        "struct.definition:cpp": { "bold": true },
+        "enum.declaration:cpp": { "bold": true },
+        "enum.definition:cpp": { "bold": true },
+        "union.declaration:cpp": { "bold": true },
+        "union.definition:cpp": { "bold": true },
+        "typeAlias.declaration:cpp": { "bold": true },
+        "typeAlias.definition:cpp": { "bold": true },
+        "function.declaration:cpp": { "bold": true },
+        "function.definition:cpp": { "bold": true },
+        "method.declaration:cpp": { "bold": true },
+        "method.definition:cpp": { "bold": true },
+        "enumMember.declaration:cpp": { "bold": true },
+        "enumMember.definition:cpp": { "bold": true },
+
+        // Rust
+        "struct.declaration:rust": { "bold": true },
+        "struct.definition:rust": { "bold": true },
+        "enum.declaration:rust": { "bold": true },
+        "enum.definition:rust": { "bold": true },
+        "union.declaration:rust": { "bold": true },
+        "union.definition:rust": { "bold": true },
+        "typeAlias.declaration:rust": { "bold": true },
+        "typeAlias.definition:rust": { "bold": true },
+        "trait.declaration:rust": { "bold": true },
+        "trait.definition:rust": { "bold": true },
+        "function.declaration:rust": { "bold": true },
+        "function.definition:rust": { "bold": true },
+        "method.declaration:rust": { "bold": true },
+        "method.definition:rust": { "bold": true },
+        "variable.constant.declaration:rust": { "bold": true },
+        "variable.constant.definition:rust": { "bold": true },
+        "enumMember.declaration:rust": { "bold": true },
+        "enumMember.definition:rust": { "bold": true },
+
+        // Python
+        "class.declaration:python": { "bold": true },
+        "class.definition:python": { "bold": true },
+        "function.declaration:python": { "bold": true },
+        "function.definition:python": { "bold": true },
+        "method.declaration:python": { "bold": true },
+        "method.definition:python": { "bold": true },
+        "enumMember.declaration:python": { "bold": true },
+        "enumMember.definition:python": { "bold": true }
     }
 }

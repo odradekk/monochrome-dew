@@ -2,7 +2,7 @@
     "name": "monochrome-dew",
     "displayName": "Monochrome Dew",
     "description": "Monochrome Dark with restrained blue and pink-gray accents — like morning dew on gray stone. Refined syntax highlighting for C#, C++, Rust, Python, Markdown, JSON/TOML/YAML, HTML/CSS.",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "publisher": "odradekk",
     "license": "MIT",
     "author": {
@@ -26,7 +26,7 @@
         "python"
     ],
     "galleryBanner": {
-        "color": "#18181c",
+        "color": "#111113",
         "theme": "dark"
     },
     "icon": "icon.png",
