@@ -5,6 +5,7 @@
 .github/**
 AGENTS.md
 RELEASING.md
+preview.html
 scripts/**
 examples/**
 generated-images/**

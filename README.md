@@ -1,12 +1,12 @@
 # Monochrome Dew
 
 [![Version](https://img.shields.io/github/v/tag/odradekk/monochrome-dew?style=flat-square&label=version&color=111113&sort=semver)](https://github.com/odradekk/monochrome-dew/releases)
-[![VS Marketplace](https://img.shields.io/badge/VS%20Code-Marketplace-8a9dbc?style=flat-square&logo=visualstudiocode&logoColor=c8cdd6)](https://marketplace.visualstudio.com/items?itemName=odradekk.monochrome-dew)
-[![Open VSX](https://img.shields.io/open-vsx/v/odradekk/monochrome-dew?style=flat-square&label=Open%20VSX&color=b0969c)](https://open-vsx.org/extension/odradekk/monochrome-dew)
+[![VS Marketplace](https://img.shields.io/badge/VS%20Code-Marketplace-9bb3d4?style=flat-square&logo=visualstudiocode&logoColor=bccee6)](https://marketplace.visualstudio.com/items?itemName=odradekk.monochrome-dew)
+[![Open VSX](https://img.shields.io/open-vsx/v/odradekk/monochrome-dew?style=flat-square&label=Open%20VSX&color=d49bae)](https://open-vsx.org/extension/odradekk/monochrome-dew)
 [![License](https://img.shields.io/github/license/odradekk/monochrome-dew?style=flat-square&color=8d8d8d)](./LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/odradekk/monochrome-dew?style=flat-square&color=c8cdd6)](https://github.com/odradekk/monochrome-dew/stargazers)
+[![GitHub stars](https://img.shields.io/github/stars/odradekk/monochrome-dew?style=flat-square&color=e6d9bc)](https://github.com/odradekk/monochrome-dew/stargazers)
 
-> A dark VS Code theme that extends **Monochrome Dark** with restrained blue and pink-gray accents — like morning dew on a gray stone.
+> A dark VS Code theme that extends **Monochrome Dark** with soft blue, pink, and gold accents — like morning dew on a gray stone.
 
 ---
 
@@ -33,17 +33,18 @@
 
 ## Design
 
-Three color families on a uniform near-black base (`#111113`):
+Four color families on a uniform near-black base (`#111113`):
 
 | Role | Color | Used for |
 |------|-------|----------|
-| **Structure** | blue `#6a7d99` → `#c8cdd6` | keywords, types, functions, modules |
-| **Data** | pink-gray `#907a82` → `#baa0a6` | strings, numbers, constants |
-| **Neutral** | gray `#555555` → `#aaaaaa` | variables, operators, comments |
+| **Structure** | blue `#5f7695` → `#bccee6` | keywords, types, functions, modules, lifetimes |
+| **Data** | pink `#b67c8f` → `#d49bae` | strings, `self`/`this`, mutable variables |
+| **Rare** | gold `#95855f` → `#e6d9bc` | numbers, booleans, enum members, macros, attributes, warnings |
+| **Neutral** | gray `#555555` → `#aaaaaa` | variables, operators, punctuation |
 
-Both accent families sit at ~15% saturation, reading as "tinted gray" rather than color — quiet semantic hints, not decoration.
+Each hue family shares one lightness ramp (faint → dim → main → bright, 28–45% saturation), so all three read at equal visual weight — softly colored, never neon. Errors use an alarm pink (`#db7698`), a higher-saturation member of the data family.
 
-Readable neutral text uses stronger contrast (`#7c7c7c` for ordinary variables and `#5c687c` for comments), while punctuation and markup remain deliberately dim. Control-flow and structural declaration keywords are bold in C#, C++, Rust, and Python. Type, callable, and precisely identified constant names are bold only at their declaration or definition.
+Readable neutral text uses stronger contrast (`#7c7c7c` for ordinary variables and `#5f7695` for comments), while punctuation and markup remain deliberately dim. Control-flow and structural declaration keywords are bold in C#, C++, Rust, and Python. Type, callable, and precisely identified constant names are bold only at their declaration or definition.
 
 ---
 
@@ -55,7 +56,7 @@ Fine-grained scope rules and semantic token colors for:
 - **C++** — templates, `constexpr` hierarchy, operator overloads, preprocessor
 - **Rust** — traits, lifetimes, macros, `unsafe`, mutable variable distinction
 - **Python** — decorators, f-strings, docstrings, `self`/`cls`, type hints
-- **Markdown** — H1-H6 blue hierarchy, dimmed markers
+- **Markdown** — H1-H6 gold hierarchy, dimmed markers
 - **JSON / TOML / YAML** — key vs. value separation
 - **HTML / CSS** — tag/attribute/property tiers
 

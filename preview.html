@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monochrome Dew — Tricolor Redesign Preview</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0b0b0d; color: #aaaaaa;
+    font: 14px/1.6 "Segoe UI", "Microsoft YaHei", system-ui, sans-serif;
+    padding: 24px clamp(16px, 4vw, 48px) 64px;
+  }
+  header { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-bottom: 18px; }
+  h1 { font-size: 18px; font-weight: 600; color: #c8c8c8; letter-spacing: .02em; }
+  h1 .sub { color: #626262; font-weight: 400; font-size: 13px; margin-left: 10px; }
+
+  /* ---- old/new toggle ---- */
+  .seg { display: inline-flex; border: 1px solid #2a2a34; border-radius: 6px; overflow: hidden; }
+  .seg button {
+    background: #111113; color: #626262; border: 0; padding: 6px 14px;
+    font: inherit; font-size: 13px; cursor: pointer;
+  }
+  .seg button.on { background: #2a2a34; color: #d4d4d4; }
+  .seg button:focus-visible { outline: 2px solid var(--wbfocus); outline-offset: -2px; }
+
+  /* ---- tabs ---- */
+  nav.tabs { display: flex; gap: 4px; border-bottom: 1px solid #22222a; margin-bottom: 20px; }
+  nav.tabs button {
+    background: none; border: 0; border-bottom: 2px solid transparent; color: #626262;
+    font: inherit; padding: 8px 14px; cursor: pointer;
+  }
+  nav.tabs button.on { color: #d4d4d4; border-bottom-color: var(--wblink); }
+  section.page { display: none; }
+  section.page.on { display: block; }
+
+  .note { color: #626262; font-size: 12.5px; margin: 4px 0 18px; max-width: 76ch; }
+  .note b { color: #8d8d8d; font-weight: 600; }
+
+  /* ---- palette tab ---- */
+  .famgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 14px; margin-bottom: 22px; }
+  .fam { background: #111113; border: 1px solid #22222a; border-radius: 8px; padding: 14px; }
+  .fam h3 { font-size: 13px; color: #b4b4b4; font-weight: 600; margin-bottom: 2px; }
+  .fam .hue { color: #626262; font-size: 11.5px; margin-bottom: 10px; }
+  .swrow { display: flex; align-items: center; gap: 10px; padding: 5px 0; }
+  .sw { width: 46px; height: 26px; border-radius: 5px; border: 1px solid #ffffff14; flex: none; }
+  .swrow code { font: 12px "Cascadia Code", Consolas, monospace; color: #8d8d8d; width: 64px; }
+  .swrow .tier { color: #626262; font-size: 11.5px; width: 44px; flex: none; }
+  .swrow .used { color: #8d8d8d; font-size: 12px; }
+  .strip { background: #111113; border: 1px solid #22222a; border-radius: 8px; padding: 14px; margin-bottom: 22px; }
+  .strip h3 { font-size: 13px; color: #b4b4b4; font-weight: 600; margin-bottom: 10px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { display: inline-flex; align-items: center; gap: 8px; border: 1px solid #2a2a34; border-radius: 6px; padding: 5px 10px; font-size: 12px; color: #8d8d8d; }
+  .chip .dot { width: 14px; height: 14px; border-radius: 4px; border: 1px solid #ffffff14; }
+  .chip code { font: 11.5px "Cascadia Code", Consolas, monospace; color: #626262; }
+
+  table.map { width: 100%; border-collapse: collapse; font-size: 12.5px; margin-bottom: 22px; }
+  table.map th { text-align: left; color: #626262; font-weight: 600; padding: 6px 10px; border-bottom: 1px solid #22222a; }
+  table.map td { padding: 5px 10px; border-bottom: 1px solid #1a1a20; color: #8d8d8d; }
+  table.map td.role { color: #b4b4b4; }
+  .minichip { display: inline-flex; align-items: center; gap: 7px; }
+  .minichip .dot { width: 12px; height: 12px; border-radius: 3px; }
+  .minichip code { font: 11.5px "Cascadia Code", Consolas, monospace; color: #626262; }
+
+  .mddemo { background: var(--bg); border: 1px solid #22222a; border-radius: 8px; padding: 18px 22px; margin-bottom: 22px; }
+  .mddemo div { margin: 2px 0; }
+
+  /* ---- editor tab ---- */
+  .pills { display: flex; gap: 6px; margin-bottom: 12px; }
+  .pills button {
+    background: #111113; border: 1px solid #2a2a34; border-radius: 6px; color: #626262;
+    font: inherit; font-size: 12.5px; padding: 4px 12px; cursor: pointer;
+  }
+  .pills button.on { color: #d4d4d4; border-color: var(--wblink); }
+  .editor {
+    background: var(--bg); border: 1px solid #22222a; border-radius: 8px; overflow: hidden;
+    font: 13px/1.7 "Cascadia Code", "JetBrains Mono", Consolas, monospace;
+  }
+  .editor .filebar {
+    background: #111113; border-bottom: 1px solid #22222a; color: #626262;
+    font-size: 12px; padding: 7px 14px; font-family: "Segoe UI", sans-serif;
+  }
+  .code { padding: 12px 0; counter-reset: ln; }
+  .code .l { display: block; white-space: pre; padding: 0 18px 0 58px; position: relative; }
+  .code .l::before {
+    counter-increment: ln; content: counter(ln);
+    position: absolute; left: 0; top: 0; width: 40px; text-align: right;
+    color: var(--gutter); user-select: none;
+  }
+  .code .l.cur { background: var(--linebg); }
+  .l { min-height: 1.7em; }
+
+  .b { font-weight: 700; }
+  .i { font-style: italic; }
+  .u { text-decoration: underline; text-underline-offset: 3px; }
+  .cmt { color: var(--comment); }
+  .kw { color: var(--keyword); }
+  .kw2 { color: var(--keyword2); }
+  .fn { color: var(--fn); }
+  .fndecl { color: var(--fn); }
+  .fnb { color: var(--fnb); }
+  .ty { color: var(--type); }
+  .tdecl { color: var(--typedecl); }
+  .tyb { color: var(--typebuiltin); }
+  .ifc { color: var(--iface); font-style: italic; }
+  .tpar { color: var(--typeparam); font-style: italic; }
+  .ns { color: var(--ns); }
+  .mac { color: var(--macro); }
+  .str { color: var(--string); }
+  .esc { color: var(--esc); }
+  .fmt { color: var(--fmt); }
+  .num { color: var(--num); }
+  .cnst { color: var(--num); }
+  .enm { color: var(--num); }
+  .vr { color: var(--var); }
+  .vro { color: var(--varro); }
+  .prm { color: var(--param); }
+  .prp { color: var(--prop); }
+  .mut { color: var(--mut); }
+  .slf { color: var(--self); }
+  .lif { color: var(--life); }
+  .tag { color: var(--tag); }
+  .attr { color: var(--attr); }
+  .err { color: var(--err); }
+  .op { color: var(--op); }
+  .pn { color: var(--punct); }
+  .sqe { text-decoration: underline wavy var(--err); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+  .sqw { text-decoration: underline wavy var(--warn); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+
+  .mdh1 { color: var(--mdh1); font-weight: 700; font-size: 20px; }
+  .mdh2 { color: var(--mdh2); font-weight: 700; font-size: 17px; }
+  .mdh3 { color: var(--mdh3); font-size: 15px; }
+  .mdh4 { color: var(--mdh4); font-size: 14px; }
+  .mdh56 { color: var(--mdh56); font-size: 13px; }
+  .mdb { color: var(--mdbold); font-weight: 700; }
+  .mdi { color: var(--mditalic); font-style: italic; }
+  .mdc { color: var(--mdcode); font-family: Consolas, monospace; }
+  .mdl { color: var(--mdlink); text-decoration: underline; text-underline-offset: 3px; }
+  .dadd { color: var(--diffadd); }
+  .ddel { color: var(--diffdel); }
+  .dchg { color: var(--diffchg); }
+
+  /* ---- workbench tab ---- */
+  .win { border: 1px solid #22222a; border-radius: 10px; overflow: hidden; background: var(--wbbg); margin-bottom: 22px; }
+  .titlebar { height: 34px; display: flex; align-items: center; justify-content: center; gap: 8px;
+    border-bottom: 1px solid var(--wbborder); color: var(--wbfg); font-size: 12px; }
+  .titlebar .dot3 { position: absolute; right: 14px; color: var(--wbfgd); letter-spacing: 6px; }
+  .titlebar { position: relative; }
+  .wbbody { display: grid; grid-template-columns: 46px 210px 1fr; min-height: 380px; }
+  .activity { border-right: 1px solid var(--wbborder); display: flex; flex-direction: column; align-items: center; padding-top: 8px; gap: 4px; }
+  .activity .ic { width: 38px; height: 38px; display: grid; place-items: center; color: var(--wbfgd);
+    font-size: 12px; border-left: 2px solid transparent; position: relative; }
+  .activity .ic.on { color: var(--wbfga); border-left-color: var(--wblink); }
+  .activity .ic .bdg { position: absolute; bottom: 2px; right: 2px; background: var(--wbbadgebg); color: var(--wbbadgefg);
+    font-size: 9px; border-radius: 8px; padding: 0 4px; line-height: 14px; }
+  .sidebar { border-right: 1px solid var(--wbborder); padding: 8px 0; font-size: 12.5px; }
+  .sidebar h4 { color: var(--wbfgd); font-size: 11px; font-weight: 600; letter-spacing: .08em; padding: 4px 14px 8px; }
+  .tree div { padding: 2px 14px 2px 26px; color: var(--wbfg); display: flex; justify-content: space-between; }
+  .tree .dir { color: var(--wbfgd); padding-left: 16px; font-weight: 600; }
+  .tree .sel { background: var(--wbselbg); color: var(--wbselfg); }
+  .tree .hov { background: var(--wbhover); }
+  .git-a { color: var(--gitadd) !important; } .git-m { color: var(--gitmod) !important; }
+  .git-u { color: var(--gituntr) !important; } .git-i { color: #323232 !important; }
+  .tree .g { font-size: 11px; }
+  .maincol { display: flex; flex-direction: column; min-width: 0; }
+  .tabstrip { display: flex; border-bottom: 1px solid var(--wbborder); }
+  .tabstrip .tb { padding: 7px 16px; font-size: 12.5px; color: var(--wbfgd); border-right: 1px solid var(--wbborder); }
+  .tabstrip .tb.on { color: var(--wbfga); box-shadow: inset 0 1px 0 var(--wblink); background: var(--bg); }
+  .tabstrip .tb.mod { box-shadow: inset 0 1px 0 var(--wbmod); }
+  .tabstrip .tb .x { color: var(--wbfgd); margin-left: 8px; }
+  .crumb { padding: 5px 16px; font-size: 12px; color: var(--wbfgd); border-bottom: 1px solid var(--wbborder); }
+  .crumb .t { color: var(--type); } .crumb .f { color: var(--fn); }
+  .minied { padding: 10px 0; font: 12.5px/1.65 "Cascadia Code", Consolas, monospace; flex: 1; }
+  .panel { border-top: 1px solid var(--wbborder); }
+  .panel .ptabs { display: flex; gap: 16px; padding: 6px 16px 0; font-size: 11px; letter-spacing: .06em; }
+  .panel .ptabs span { color: var(--wbfgd); padding-bottom: 5px; }
+  .panel .ptabs span.on { color: var(--wbfga); border-bottom: 1px solid var(--wblink); }
+  .term { padding: 10px 16px 14px; font: 12px/1.6 "Cascadia Code", Consolas, monospace; color: var(--termfg); }
+  .term .ansi { display: flex; gap: 4px; margin-top: 8px; flex-wrap: wrap; }
+  .term .ansi span { padding: 1px 7px; border-radius: 4px; background: #18181c; font-size: 11px; }
+  .statusbar { display: flex; justify-content: space-between; border-top: 1px solid var(--wbborder);
+    padding: 4px 14px; font-size: 11.5px; color: var(--wbfg); }
+  .statusbar .grp { display: flex; gap: 16px; }
+  .statusbar .e { color: var(--wberr); } .statusbar .w { color: var(--wbwarn); }
+
+  .widgets { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+  .wcard { background: #111113; border: 1px solid #22222a; border-radius: 8px; padding: 16px; }
+  .wcard h4 { font-size: 12px; color: #626262; font-weight: 600; margin-bottom: 12px; letter-spacing: .04em; }
+  .btn { display: inline-block; background: var(--wbbtnbg); color: var(--wbbtnfg); border-radius: 4px;
+    padding: 6px 16px; font-size: 13px; }
+  .btn.hov { background: var(--wbbtnhov); }
+  .btn.ghost { background: transparent; border: 1px solid #2a2a34; color: var(--wbfg); }
+  .lnk { color: var(--wblink); text-decoration: none; }
+  .lnk:hover { color: var(--wblinkact); }
+  .inp { background: var(--wbbg); border: 1px solid var(--wbfocus); border-radius: 4px; color: var(--wbfg);
+    padding: 6px 10px; font-size: 13px; width: 100%; }
+  .lst div { padding: 3px 10px; border-radius: 4px; font-size: 13px; color: var(--wbfg); }
+  .lst .sel { background: var(--wbselbg); color: var(--wbselfg); }
+  .lst .hov { background: var(--wbhover); }
+  .lst .hl { color: var(--wblink); }
+  .notif { display: flex; gap: 14px; font-size: 13px; }
+  .notif .e { color: var(--wberr); } .notif .w { color: var(--wbwarn); } .notif .i { color: var(--wbinfo); }
+  .diffdemo div { font: 12.5px Consolas, monospace; padding: 1px 8px; border-radius: 3px; }
+  .diffdemo .a { color: var(--diffadd); background: color-mix(in srgb, var(--diffadd) 10%, transparent); }
+  .diffdemo .d { color: var(--diffdel); background: color-mix(in srgb, var(--diffdel) 10%, transparent); }
+  .diffdemo .c { color: var(--diffchg); background: color-mix(in srgb, var(--diffchg) 10%, transparent); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Monochrome Dew <span class="sub">三色重设计预览 · 蓝215° 结构 / 粉340° 数据 / 金42° 稀有 · 深色</span></h1>
+  <span class="seg" id="paletteSeg">
+    <button data-p="old">旧配色 · 灰调</button>
+    <button data-p="new" class="on">新配色 · 三色</button>
+  </span>
+  <span class="seg" id="tabSeg">
+    <button data-t="palette" class="on">调色板</button>
+    <button data-t="editor">编辑器</button>
+    <button data-t="workbench">工作台</button>
+  </span>
+</header>
+
+<!-- ============================== PALETTE ============================== -->
+<section class="page on" id="pg-palette">
+  <p class="note">三族统一明度分档：<b>bright L82/S45</b> 声明名与标题 · <b>main L72/S40</b> 主体 · <b>dim L60/S28</b> 高频关键字/函数与次级标注 · <b>faint L48/S22</b> 注释、命名空间、转义等退后元素。中性灰族与底色 <b>#111113</b> 保持不变。</p>
+
+  <div class="famgrid">
+    <div class="fam">
+      <h3>蓝族 · 结构</h3><div class="hue">H 215° — keywords / types / functions / modules / lifetimes</div>
+      <div class="swrow"><span class="sw" style="background:var(--typedecl)"></span><code data-role="typedecl"></code><span class="tier">bright</span><span class="used">类型声明名（bold）、符号高亮</span></div>
+      <div class="swrow"><span class="sw" style="background:var(--type)"></span><code data-role="type"></code><span class="tier">main</span><span class="used">类型引用、接口/trait(i)、内置/库函数、链接</span></div>
+      <div class="swrow"><span class="sw" style="background:var(--keyword)"></span><code data-role="keyword"></code><span class="tier">dim</span><span class="used">关键字、storage、函数、内置类型</span></div>
+      <div class="swrow"><span class="sw" style="background:var(--ns)"></span><code data-role="ns"></code><span class="tier">faint</span><span class="used">注释、命名空间/模块、magic 函数、生命周期</span></div>
+    </div>
+    <div class="fam">
+      <h3>粉族 · 数据</h3><div class="hue">H 340° — strings / data values / mutability / diagnostics-alarm</div>
+      <div class="swrow"><span class="sw" style="background:var(--string)"></span><code data-role="string"></code><span class="tier">main</span><span class="used">字符串、字符字面量、Md 行内代码</span></div>
+      <div class="swrow"><span class="sw" style="background:var(--mut)"></span><code data-role="mut"></code><span class="tier">dim</span><span class="used">self/this/cls、可变变量、diff 删除、Md 斜体</span></div>
+      <div class="swrow"><span class="sw" style="background:var(--err)"></span><code data-role="err"></code><span class="tier">alarm</span><span class="used">错误 / invalid（S58 提饱和，族内警报色）</span></div>
+      <div class="swrow"><span class="sw" style="background:var(--esc)"></span><code data-role="esc"></code><span class="tier">faint→金</span><span class="used">转义与占位符已划归金族 faint（见右）</span></div>
+    </div>
+    <div class="fam">
+      <h3>金族 · 稀有</h3><div class="hue">H 42° — literals / macros / attributes / warnings / headings</div>
+      <div class="swrow"><span class="sw" style="background:var(--mdh1)"></span><code data-role="mdh1"></code><span class="tier">bright</span><span class="used">Markdown H1（标题梯度顶端）</span></div>
+      <div class="swrow"><span class="sw" style="background:var(--num)"></span><code data-role="num"></code><span class="tier">main</span><span class="used">数字、布尔、null、枚举成员、内置常量</span></div>
+      <div class="swrow"><span class="sw" style="background:var(--macro)"></span><code data-role="macro"></code><span class="tier">dim</span><span class="used">宏/装饰器/特性/预处理、警告、HTML 属性名</span></div>
+      <div class="swrow"><span class="sw" style="background:var(--esc)"></span><code data-role="esc"></code><span class="tier">faint</span><span class="used">转义序列、格式化占位符、Md H4-H6</span></div>
+    </div>
+  </div>
+
+  <div class="strip">
+    <h3>中性灰族（不变）与底色</h3>
+    <div class="chips">
+      <span class="chip"><span class="dot" style="background:#111113"></span>底色 <code>#111113</code></span>
+      <span class="chip"><span class="dot" style="background:#7c7c7c"></span>变量 <code>#7c7c7c</code></span>
+      <span class="chip"><span class="dot" style="background:#8d8d8d"></span>参数 <code>#8d8d8d</code></span>
+      <span class="chip"><span class="dot" style="background:#858585"></span>属性 <code>#858585</code></span>
+      <span class="chip"><span class="dot" style="background:#aaaaaa"></span>前景/运算符 <code>#aaaaaa</code></span>
+      <span class="chip"><span class="dot" style="background:#939393"></span>只读变量 <code>#939393</code></span>
+    </div>
+  </div>
+
+  <div class="mddemo">
+    <div class="mdh1">Heading 1 — gold bright</div>
+    <div class="mdh2">Heading 2 — gold main</div>
+    <div class="mdh3">Heading 3 — gold dim</div>
+    <div class="mdh4">Heading 4 — gold faint</div>
+    <div class="mdh56">Heading 5 / 6 — gold faint</div>
+    <div style="margin-top:10px;color:var(--fg)">正文 <span class="mdb">粗体 neutral</span> · <span class="mdi">斜体 pink dim</span> · <span class="mdc">inline code pink main</span> · <span class="mdl">链接 blue main</span></div>
+  </div>
+
+  <h3 style="font-size:13px;color:#b4b4b4;margin-bottom:10px">角色映射表 · 旧 → 新</h3>
+  <table class="map">
+    <thead><tr><th>角色</th><th>旧配色</th><th>新配色</th><th>说明</th></tr></thead>
+    <tbody id="mapBody"></tbody>
+  </table>
+</section>
+
+<!-- ============================== EDITOR ============================== -->
+<section class="page" id="pg-editor">
+  <p class="note">加粗规则不变：<b>控制流</b>（if/for/match/return…）、<b>结构声明关键字</b>（class/struct/fn/def…）、<b>声明名</b> 加粗；调用、引用、局部绑定、字面量保持常规字重。波浪线示例：<span class="sqe">错误</span> / <span class="sqw">警告</span>。</p>
+  <div class="pills" id="langPills">
+    <button data-l="cs" class="on">C#</button>
+    <button data-l="cpp">C++</button>
+    <button data-l="rs">Rust</button>
+    <button data-l="py">Python</button>
+  </div>
+
+  <div class="editor" id="ed-cs">
+    <div class="filebar">Circle.cs — C#</div>
+    <div class="code">
+<div class="l"><span class="cmt">// src/Geometry/Circle.cs — immutable shape with JSON serialization</span></div>
+<div class="l"><span class="kw">using</span> <span class="ns">System</span><span class="pn">;</span></div>
+<div class="l"></div>
+<div class="l"><span class="kw b">namespace</span> <span class="ns">Geometry.Core</span></div>
+<div class="l"><span class="pn">{</span></div>
+<div class="l">    <span class="pn">[</span><span class="mac">Serializable</span><span class="pn">]</span></div>
+<div class="l">    <span class="kw">public sealed</span> <span class="kw b">class</span> <span class="tdecl b">Circle</span> <span class="op">:</span> <span class="ty">Shape</span><span class="pn">,</span> <span class="ifc">IComparable</span><span class="pn">&lt;</span><span class="ty">Circle</span><span class="pn">&gt;</span></div>
+<div class="l">    <span class="pn">{</span></div>
+<div class="l">        <span class="kw">private static readonly</span> <span class="tyb">double</span> <span class="vr u">Tau</span> <span class="op">=</span> <span class="ty">Math</span><span class="pn">.</span><span class="vro">PI</span> <span class="op">*</span> <span class="num">2.0</span><span class="pn">;</span></div>
+<div class="l"></div>
+<div class="l">        <span class="kw">public</span> <span class="ty">Point</span> <span class="prp">Center</span> <span class="pn">{</span> <span class="kw2">get</span><span class="pn">;</span> <span class="pn">}</span></div>
+<div class="l">        <span class="kw">public</span> <span class="tyb">double</span> <span class="prp">Radius</span> <span class="pn">{</span> <span class="kw2">get</span><span class="pn">;</span> <span class="pn">}</span></div>
+<div class="l"></div>
+<div class="l">        <span class="kw">public</span> <span class="fndecl b">Circle</span><span class="pn">(</span><span class="ty">Point</span> <span class="prm">center</span><span class="pn">,</span> <span class="tyb">double</span> <span class="prm">radius</span><span class="pn">)</span></div>
+<div class="l">        <span class="pn">{</span></div>
+<div class="l">            <span class="prp">Radius</span> <span class="op">=</span> <span class="prm">radius</span> <span class="op">&gt;</span> <span class="num">0</span> <span class="op">?</span> <span class="prm">radius</span> <span class="op">:</span> <span class="kw b">throw</span> <span class="kw">new</span> <span class="ty">ArgumentException</span><span class="pn">(</span><span class="str">"negative"</span><span class="pn">);</span></div>
+<div class="l">        <span class="pn">}</span></div>
+<div class="l"></div>
+<div class="l">        <span class="kw">public override</span> <span class="tyb">bool</span> <span class="fndecl b">Contains</span><span class="pn">(</span><span class="ty">Point</span> <span class="prm">p</span><span class="pn">)</span></div>
+<div class="l">        <span class="pn">{</span></div>
+<div class="l cur">            <span class="kw">var</span> <span class="vr">dx</span> <span class="op">=</span> <span class="prm">p</span><span class="pn">.</span><span class="prp">X</span> <span class="op">-</span> <span class="prp">Center</span><span class="pn">.</span><span class="prp">X</span><span class="pn">;</span></div>
+<div class="l">            <span class="kw b">return</span> <span class="vr">dx</span> <span class="op">*</span> <span class="vr">dx</span> <span class="op">&lt;=</span> <span class="prp">Radius</span> <span class="op">*</span> <span class="prp">Radius</span><span class="pn">;</span></div>
+<div class="l">        <span class="pn">}</span></div>
+<div class="l"></div>
+<div class="l">        <span class="kw">public</span> <span class="tyb">double</span> <span class="fndecl b">Area</span><span class="pn">()</span> <span class="op">=&gt;</span> <span class="ty">Math</span><span class="pn">.</span><span class="vro">PI</span> <span class="op">*</span> <span class="prp">Radius</span> <span class="op">*</span> <span class="prp">Radius</span><span class="pn">;</span></div>
+<div class="l"></div>
+<div class="l">        <span class="kw">public</span> <span class="tyb">int</span> <span class="fndecl b">CompareTo</span><span class="pn">(</span><span class="ty">Circle</span><span class="op">?</span> <span class="prm">other</span><span class="pn">)</span></div>
+<div class="l">        <span class="pn">{</span></div>
+<div class="l">            <span class="kw b">if</span> <span class="pn">(</span><span class="prm">other</span> <span class="kw">is</span> <span class="cnst">null</span><span class="pn">)</span> <span class="kw b">return</span> <span class="num">1</span><span class="pn">;</span></div>
+<div class="l">            <span class="kw b">return</span> <span class="prp">Radius</span><span class="pn">.</span><span class="fn">CompareTo</span><span class="pn">(</span><span class="prm">other</span><span class="pn">.</span><span class="prp">Radius</span><span class="pn">);</span></div>
+<div class="l">        <span class="pn">}</span></div>
+<div class="l"></div>
+<div class="l">        <span class="kw">public override</span> <span class="tyb">string</span> <span class="fndecl b">ToString</span><span class="pn">()</span> <span class="op">=&gt;</span></div>
+<div class="l">            <span class="str">$"circle(r=</span><span class="pn">{</span><span class="prp">Radius</span><span class="fmt">:F2</span><span class="pn">}</span><span class="str">, area=</span><span class="pn">{</span><span class="fn">Area</span><span class="pn">()</span><span class="fmt">:F2</span><span class="pn">}</span><span class="esc">\n</span><span class="str">"</span><span class="pn">;</span></div>
+<div class="l">    <span class="pn">}</span></div>
+<div class="l"><span class="pn">}</span></div>
+    </div>
+  </div>
+
+  <div class="editor" id="ed-cpp" style="display:none">
+    <div class="filebar">ring_buffer.hpp — C++</div>
+    <div class="code">
+<div class="l"><span class="cmt">// include/ring_buffer.hpp — fixed capacity circular buffer</span></div>
+<div class="l"><span class="mac">#pragma once</span></div>
+<div class="l"><span class="mac">#include</span> <span class="str">&lt;cstddef&gt;</span></div>
+<div class="l"><span class="mac">#include</span> <span class="str">&lt;stdexcept&gt;</span></div>
+<div class="l"></div>
+<div class="l"><span class="kw b">namespace</span> <span class="ns">util</span> <span class="pn">{</span></div>
+<div class="l"></div>
+<div class="l"><span class="kw b">template</span> <span class="pn">&lt;</span><span class="kw">typename</span> <span class="tpar">T</span><span class="pn">,</span> <span class="ns">std</span><span class="op">::</span><span class="ty">size_t</span> <span class="tpar">N</span><span class="pn">&gt;</span></div>
+<div class="l"><span class="kw b">class</span> <span class="tdecl b">RingBuffer</span> <span class="pn">{</span></div>
+<div class="l">  <span class="fnb">static_assert</span><span class="pn">(</span><span class="tpar">N</span> <span class="op">&gt;</span> <span class="num">0</span><span class="pn">,</span> <span class="str">"capacity must be positive"</span><span class="pn">);</span></div>
+<div class="l"></div>
+<div class="l"><span class="kw">public</span><span class="op">:</span></div>
+<div class="l">  <span class="kw">constexpr explicit</span> <span class="fndecl b">RingBuffer</span><span class="pn">()</span> <span class="op">=</span> <span class="kw">default</span><span class="pn">;</span></div>
+<div class="l"></div>
+<div class="l">  <span class="tyb">bool</span> <span class="fndecl b">push</span><span class="pn">(</span><span class="kw">const</span> <span class="tpar">T</span><span class="op">&amp;</span> <span class="prm">value</span><span class="pn">)</span> <span class="pn">{</span></div>
+<div class="l cur">    <span class="kw b">if</span> <span class="pn">(</span><span class="prp">full_</span><span class="pn">)</span> <span class="kw b">return</span> <span class="cnst">false</span><span class="pn">;</span></div>
+<div class="l">    <span class="prp">data_</span><span class="pn">[</span><span class="prp">tail_</span><span class="pn">]</span> <span class="op">=</span> <span class="prm">value</span><span class="pn">;</span></div>
+<div class="l">    <span class="prp">tail_</span> <span class="op">=</span> <span class="pn">(</span><span class="prp">tail_</span> <span class="op">+</span> <span class="num">1</span><span class="pn">)</span> <span class="op">%</span> <span class="tpar">N</span><span class="pn">;</span></div>
+<div class="l">    <span class="kw b">return</span> <span class="cnst">true</span><span class="pn">;</span></div>
+<div class="l">  <span class="pn">}</span></div>
+<div class="l"></div>
+<div class="l">  <span class="tpar">T</span> <span class="fndecl b">pop</span><span class="pn">()</span> <span class="pn">{</span></div>
+<div class="l">    <span class="kw b">if</span> <span class="pn">(</span><span class="fn">empty</span><span class="pn">())</span> <span class="kw b">throw</span> <span class="ns">std</span><span class="op">::</span><span class="ty">underflow_error</span><span class="pn">(</span><span class="str">"empty buffer"</span><span class="pn">);</span></div>
+<div class="l">    <span class="tpar">T</span> <span class="vr">value</span> <span class="op">=</span> <span class="ns">std</span><span class="op">::</span><span class="fnb">move</span><span class="pn">(</span><span class="prp">data_</span><span class="pn">[</span><span class="prp">head_</span><span class="pn">]);</span></div>
+<div class="l">    <span class="prp">full_</span> <span class="op">=</span> <span class="cnst">false</span><span class="pn">;</span></div>
+<div class="l">    <span class="kw b">return</span> <span class="vr">value</span><span class="pn">;</span></div>
+<div class="l">  <span class="pn">}</span></div>
+<div class="l"></div>
+<div class="l">  <span class="pn">[[</span><span class="mac">nodiscard</span><span class="pn">]]</span> <span class="tyb">bool</span> <span class="fndecl b">empty</span><span class="pn">()</span> <span class="kw">const</span> <span class="pn">{</span> <span class="kw b">return</span> <span class="prp">tail_</span> <span class="op">==</span> <span class="prp">head_</span> <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="prp">full_</span><span class="pn">;</span> <span class="pn">}</span></div>
+<div class="l"></div>
+<div class="l"><span class="kw">private</span><span class="op">:</span></div>
+<div class="l">  <span class="tpar">T</span> <span class="prp">data_</span><span class="pn">[</span><span class="tpar">N</span><span class="pn">];</span></div>
+<div class="l">  <span class="ns">std</span><span class="op">::</span><span class="ty">size_t</span> <span class="prp">head_</span> <span class="op">=</span> <span class="num">0</span><span class="pn">,</span> <span class="prp">tail_</span> <span class="op">=</span> <span class="num">0</span><span class="pn">;</span></div>
+<div class="l">  <span class="tyb">bool</span> <span class="prp">full_</span> <span class="op">=</span> <span class="cnst">false</span><span class="pn">;</span></div>
+<div class="l"><span class="pn">};</span></div>
+<div class="l"></div>
+<div class="l"><span class="pn">}</span> <span class="cmt">// namespace util</span></div>
+    </div>
+  </div>
+
+  <div class="editor" id="ed-rs" style="display:none">
+    <div class="filebar">retry.rs — Rust</div>
+    <div class="code">
+<div class="l"><span class="cmt">//! A tiny retry helper with exponential backoff.</span></div>
+<div class="l"></div>
+<div class="l"><span class="kw">use</span> <span class="ns">std::time</span><span class="op">::</span><span class="pn">{</span><span class="ty">Duration</span><span class="pn">,</span> <span class="ty">Instant</span><span class="pn">};</span></div>
+<div class="l"></div>
+<div class="l"><span class="kw b">const</span> <span class="cnst b">MAX_ATTEMPTS</span><span class="op">:</span> <span class="tyb">u32</span> <span class="op">=</span> <span class="num">5</span><span class="pn">;</span></div>
+<div class="l"></div>
+<div class="l"><span class="pn">#[</span><span class="mac">derive</span><span class="pn">(</span><span class="ty">Debug</span><span class="pn">,</span> <span class="ty">Clone</span><span class="pn">)]</span></div>
+<div class="l"><span class="kw">pub</span> <span class="kw b">struct</span> <span class="tdecl b">RetryPolicy</span> <span class="pn">{</span></div>
+<div class="l">    <span class="prp">base</span><span class="op">:</span> <span class="ty">Duration</span><span class="pn">,</span></div>
+<div class="l">    <span class="prp">factor</span><span class="op">:</span> <span class="tyb">f64</span><span class="pn">,</span></div>
+<div class="l"><span class="pn">}</span></div>
+<div class="l"></div>
+<div class="l"><span class="kw b">impl</span> <span class="ty">RetryPolicy</span> <span class="pn">{</span></div>
+<div class="l">    <span class="kw">pub</span> <span class="kw b">fn</span> <span class="fndecl b">new</span><span class="pn">(</span><span class="prm">base</span><span class="op">:</span> <span class="ty">Duration</span><span class="pn">)</span> <span class="op">-&gt;</span> <span class="ty">Self</span> <span class="pn">{</span></div>
+<div class="l">        <span class="ty">Self</span> <span class="pn">{</span> <span class="prm">base</span><span class="pn">,</span> <span class="prp">factor</span><span class="op">:</span> <span class="num">2.0</span> <span class="pn">}</span></div>
+<div class="l">    <span class="pn">}</span></div>
+<div class="l"></div>
+<div class="l">    <span class="kw">pub</span> <span class="kw b">fn</span> <span class="fndecl b">run</span><span class="pn">&lt;</span><span class="tpar">T</span><span class="pn">,</span> <span class="tpar">E</span><span class="pn">&gt;(</span><span class="op">&amp;</span><span class="slf">self</span><span class="pn">,</span> <span class="kw">mut</span> <span class="mut">op</span><span class="op">:</span> <span class="kw">impl</span> <span class="ifc">FnMut</span><span class="pn">()</span> <span class="op">-&gt;</span> <span class="ty">Result</span><span class="pn">&lt;</span><span class="tpar">T</span><span class="pn">,</span> <span class="tpar">E</span><span class="pn">&gt;)</span> <span class="op">-&gt;</span> <span class="ty">Result</span><span class="pn">&lt;</span><span class="tpar">T</span><span class="pn">,</span> <span class="tpar">E</span><span class="pn">&gt;</span> <span class="pn">{</span></div>
+<div class="l cur">        <span class="kw b">for</span> <span class="vr">attempt</span> <span class="kw">in</span> <span class="num">0</span><span class="op">..</span><span class="cnst">MAX_ATTEMPTS</span> <span class="pn">{</span></div>
+<div class="l">            <span class="kw b">match</span> <span class="mut">op</span><span class="pn">()</span> <span class="pn">{</span></div>
+<div class="l">                <span class="enm">Ok</span><span class="pn">(</span><span class="vr">value</span><span class="pn">)</span> <span class="op">=&gt;</span> <span class="kw b">return</span> <span class="enm">Ok</span><span class="pn">(</span><span class="vr">value</span><span class="pn">),</span></div>
+<div class="l">                <span class="enm">Err</span><span class="pn">(</span><span class="vr">err</span><span class="pn">)</span> <span class="kw b">if</span> <span class="vr">attempt</span> <span class="op">+</span> <span class="num">1</span> <span class="op">==</span> <span class="cnst">MAX_ATTEMPTS</span> <span class="op">=&gt;</span> <span class="kw b">return</span> <span class="enm">Err</span><span class="pn">(</span><span class="vr">err</span><span class="pn">),</span></div>
+<div class="l">                <span class="enm">Err</span><span class="pn">(</span><span class="kw">_</span><span class="pn">)</span> <span class="op">=&gt;</span> <span class="pn">{</span></div>
+<div class="l">                    <span class="kw">let</span> <span class="vr">delay</span> <span class="op">=</span> <span class="slf">self</span><span class="pn">.</span><span class="prp">base</span><span class="pn">.</span><span class="fn">mul_f64</span><span class="pn">(</span><span class="slf">self</span><span class="pn">.</span><span class="prp">factor</span><span class="pn">.</span><span class="fn">powi</span><span class="pn">(</span><span class="vr">attempt</span> <span class="kw">as</span> <span class="tyb">i32</span><span class="pn">));</span></div>
+<div class="l">                    <span class="mac b">eprintln!</span><span class="pn">(</span><span class="str">"attempt </span><span class="fmt">{}</span><span class="str"> failed, retrying in </span><span class="fmt">{:?}</span><span class="esc">\n</span><span class="str">"</span><span class="pn">,</span> <span class="vr">attempt</span> <span class="op">+</span> <span class="num">1</span><span class="pn">,</span> <span class="vr">delay</span><span class="pn">);</span></div>
+<div class="l">                    <span class="ns">std::thread</span><span class="op">::</span><span class="fn">sleep</span><span class="pn">(</span><span class="vr">delay</span><span class="pn">);</span></div>
+<div class="l">                <span class="pn">}</span></div>
+<div class="l">            <span class="pn">}</span></div>
+<div class="l">        <span class="pn">}</span></div>
+<div class="l">        <span class="mac b">unreachable!</span><span class="pn">()</span></div>
+<div class="l">    <span class="pn">}</span></div>
+<div class="l"><span class="pn">}</span></div>
+<div class="l"></div>
+<div class="l"><span class="kw b">fn</span> <span class="fndecl b">first</span><span class="pn">&lt;</span><span class="lif">'a</span><span class="pn">&gt;(</span><span class="prm">xs</span><span class="op">:</span> <span class="op">&amp;</span><span class="lif">'a</span> <span class="pn">[</span><span class="tyb">u32</span><span class="pn">])</span> <span class="op">-&gt;</span> <span class="ty">Option</span><span class="pn">&lt;&amp;</span><span class="lif">'a</span> <span class="tyb">u32</span><span class="pn">&gt;</span> <span class="pn">{</span> <span class="prm">xs</span><span class="pn">.</span><span class="fn">first</span><span class="pn">()</span> <span class="pn">}</span></div>
+<div class="l"></div>
+<div class="l"><span class="kw b">fn</span> <span class="fndecl b">main</span><span class="pn">()</span> <span class="pn">{</span></div>
+<div class="l">    <span class="kw">let</span> <span class="vr">policy</span> <span class="op">=</span> <span class="ty">RetryPolicy</span><span class="op">::</span><span class="fn">new</span><span class="pn">(</span><span class="ty">Duration</span><span class="op">::</span><span class="fn">from_millis</span><span class="pn">(</span><span class="num">100</span><span class="pn">));</span></div>
+<div class="l">    <span class="kw">let</span> <span class="kw">mut</span> <span class="mut">n</span> <span class="op">=</span> <span class="num">0u32</span><span class="pn">;</span></div>
+<div class="l">    <span class="kw">let</span> <span class="vr">answer</span><span class="op">:</span> <span class="tyb">u32</span> <span class="op">=</span> <span class="vr">policy</span><span class="pn">.</span><span class="fn">run</span><span class="pn">(||</span> <span class="pn">{</span></div>
+<div class="l">        <span class="mut">n</span> <span class="op">+=</span> <span class="num">1</span><span class="pn">;</span></div>
+<div class="l">        <span class="kw b">if</span> <span class="mut">n</span> <span class="op">&lt;</span> <span class="num">3</span> <span class="pn">{</span> <span class="enm">Err</span><span class="pn">(</span><span class="str">"flaky"</span><span class="pn">)</span> <span class="pn">}</span> <span class="kw b">else</span> <span class="pn">{</span> <span class="enm">Ok</span><span class="pn">(</span><span class="num">42</span><span class="pn">)</span> <span class="pn">}</span></div>
+<div class="l">    <span class="pn">}).</span><span class="fn">expect</span><span class="pn">(</span><span class="str">"retry exhausted"</span><span class="pn">);</span></div>
+<div class="l">    <span class="mac b">println!</span><span class="pn">(</span><span class="str">"answer=</span><span class="fmt">{answer}</span><span class="str">"</span><span class="pn">);</span></div>
+<div class="l"><span class="pn">}</span></div>
+    </div>
+  </div>
+
+  <div class="editor" id="ed-py" style="display:none">
+    <div class="filebar">scheduler.py — Python</div>
+    <div class="code">
+<div class="l"><span class="str">"""Tiny task scheduler with a priority queue."""</span></div>
+<div class="l"></div>
+<div class="l"><span class="kw">from</span> <span class="ns">__future__</span> <span class="kw">import</span> <span class="ns">annotations</span></div>
+<div class="l"><span class="kw">import</span> <span class="ns">heapq</span></div>
+<div class="l"><span class="kw">from</span> <span class="ns">dataclasses</span> <span class="kw">import</span> <span class="fn">dataclass</span><span class="pn">,</span> <span class="fn">field</span></div>
+<div class="l"><span class="kw">from</span> <span class="ns">typing</span> <span class="kw">import</span> <span class="ty">Callable</span><span class="pn">,</span> <span class="ty">Optional</span></div>
+<div class="l"></div>
+<div class="l"><span class="vr">PRIORITY_MAX</span> <span class="op">=</span> <span class="num">10</span></div>
+<div class="l"></div>
+<div class="l"></div>
+<div class="l"><span class="pn">@</span><span class="mac">dataclass</span><span class="pn">(</span><span class="prm">order</span><span class="op">=</span><span class="cnst">True</span><span class="pn">)</span></div>
+<div class="l"><span class="kw b">class</span> <span class="tdecl b">Task</span><span class="pn">:</span></div>
+<div class="l">    <span class="prp">priority</span><span class="op">:</span> <span class="tyb">int</span></div>
+<div class="l">    <span class="prp">created</span><span class="op">:</span> <span class="tyb">float</span> <span class="op">=</span> <span class="fn">field</span><span class="pn">(</span><span class="prm">compare</span><span class="op">=</span><span class="cnst">False</span><span class="pn">)</span></div>
+<div class="l">    <span class="prp">payload</span><span class="op">:</span> <span class="ty">Callable</span><span class="pn">[[],</span> <span class="tyb">str</span><span class="pn">]</span> <span class="op">=</span> <span class="fn">field</span><span class="pn">(</span><span class="prm">compare</span><span class="op">=</span><span class="cnst">False</span><span class="pn">)</span></div>
+<div class="l"></div>
+<div class="l"></div>
+<div class="l"><span class="kw b">class</span> <span class="tdecl b">Scheduler</span><span class="pn">:</span></div>
+<div class="l">    <span class="str">"""Executes tasks in priority order."""</span></div>
+<div class="l"></div>
+<div class="l">    <span class="kw b">def</span> <span class="kw2 b">__init__</span><span class="pn">(</span><span class="slf">self</span><span class="pn">,</span> <span class="prm">clock</span><span class="op">:</span> <span class="ty">Callable</span><span class="pn">[[],</span> <span class="tyb">float</span><span class="pn">])</span> <span class="op">-&gt;</span> <span class="cnst">None</span><span class="pn">:</span></div>
+<div class="l">        <span class="slf">self</span><span class="pn">.</span><span class="prp">_clock</span> <span class="op">=</span> <span class="prm">clock</span></div>
+<div class="l">        <span class="slf">self</span><span class="pn">.</span><span class="prp">_queue</span><span class="op">:</span> <span class="tyb">list</span><span class="pn">[</span><span class="ty">Task</span><span class="pn">]</span> <span class="op">=</span> <span class="pn">[]</span></div>
+<div class="l"></div>
+<div class="l">    <span class="kw b">def</span> <span class="fndecl b">submit</span><span class="pn">(</span><span class="slf">self</span><span class="pn">,</span> <span class="prm">payload</span><span class="pn">,</span> <span class="prm">priority</span><span class="op">:</span> <span class="tyb">int</span> <span class="op">=</span> <span class="num">5</span><span class="pn">)</span> <span class="op">-&gt;</span> <span class="cnst">None</span><span class="pn">:</span></div>
+<div class="l cur">        <span class="kw b">if</span> <span class="kw">not</span> <span class="num">0</span> <span class="op">&lt;=</span> <span class="prm">priority</span> <span class="op">&lt;=</span> <span class="vr">PRIORITY_MAX</span><span class="pn">:</span></div>
+<div class="l">            <span class="kw b">raise</span> <span class="ty">ValueError</span><span class="pn">(</span><span class="str">f"priority out of range: </span><span class="pn">{</span><span class="prm">priority</span><span class="fmt">!r</span><span class="pn">}</span><span class="esc">\n</span><span class="str">"</span><span class="pn">)</span></div>
+<div class="l">        <span class="vr">task</span> <span class="op">=</span> <span class="ty">Task</span><span class="pn">(</span><span class="prm">priority</span><span class="op">=-</span><span class="prm">priority</span><span class="pn">,</span> <span class="prm">created</span><span class="op">=</span><span class="slf">self</span><span class="pn">.</span><span class="prp">_clock</span><span class="pn">(),</span> <span class="prm">payload</span><span class="op">=</span><span class="prm">payload</span><span class="pn">)</span></div>
+<div class="l">        <span class="ns">heapq</span><span class="pn">.</span><span class="fn">heappush</span><span class="pn">(</span><span class="slf">self</span><span class="pn">.</span><span class="prp">_queue</span><span class="pn">,</span> <span class="vr">task</span><span class="pn">)</span></div>
+<div class="l"></div>
+<div class="l">    <span class="kw b">def</span> <span class="fndecl b">run_next</span><span class="pn">(</span><span class="slf">self</span><span class="pn">)</span> <span class="op">-&gt;</span> <span class="ty">Optional</span><span class="pn">[</span><span class="tyb">str</span><span class="pn">]:</span></div>
+<div class="l">        <span class="kw b">if</span> <span class="kw">not</span> <span class="slf">self</span><span class="pn">.</span><span class="prp">_queue</span><span class="pn">:</span></div>
+<div class="l">            <span class="kw b">return</span> <span class="cnst">None</span></div>
+<div class="l">        <span class="vr">task</span> <span class="op">=</span> <span class="ns">heapq</span><span class="pn">.</span><span class="fn">heappop</span><span class="pn">(</span><span class="slf">self</span><span class="pn">.</span><span class="prp">_queue</span><span class="pn">)</span></div>
+<div class="l">        <span class="kw b">return</span> <span class="vr">task</span><span class="pn">.</span><span class="fn">payload</span><span class="pn">()</span></div>
+<div class="l"></div>
+<div class="l">    <span class="pn">@</span><span class="mac">property</span></div>
+<div class="l">    <span class="kw b">def</span> <span class="fndecl b">pending</span><span class="pn">(</span><span class="slf">self</span><span class="pn">)</span> <span class="op">-&gt;</span> <span class="tyb">int</span><span class="pn">:</span></div>
+<div class="l">        <span class="kw b">return</span> <span class="fnb">len</span><span class="pn">(</span><span class="slf">self</span><span class="pn">.</span><span class="prp">_queue</span><span class="pn">)</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== WORKBENCH ============================== -->
+<section class="page" id="pg-workbench">
+  <p class="note">工作台铬件保持中性灰；<b>蓝色是唯一彩色强调</b>（链接、焦点框、按钮、进度条）。诊断色归队三族：错误=警报粉、警告=金、信息=蓝。终端 ANSI 红/黄/蓝/品红对齐三族，绿/青保持原值（三族无对应色相，避免与黄蓝混淆）。</p>
+
+  <div class="win">
+    <div class="titlebar">scheduler.py — monochrome-dew<span class="dot3">─ ▢ ✕</span></div>
+    <div class="wbbody">
+      <div class="activity">
+        <span class="ic on">EX</span><span class="ic">SC</span>
+        <span class="ic">SG<span class="bdg">3</span></span>
+        <span class="ic">RN</span><span class="ic">XT</span>
+      </div>
+      <div class="sidebar">
+        <h4>EXPLORER</h4>
+        <div class="tree">
+          <div class="dir">▾ MONOCHROME-DEW</div>
+          <div class="dir" style="padding-left:26px">▾ src</div>
+          <div class="sel"><span>scheduler.py</span><span class="g git-m">M</span></div>
+          <div class="hov"><span>ring_buffer.hpp</span><span class="g git-a">A</span></div>
+          <div><span>retry.rs</span><span class="g git-u">U</span></div>
+          <div><span>Circle.cs</span><span class="g git-m">M</span></div>
+          <div><span class="git-i">cache.bin</span><span class="g git-i">·</span></div>
+          <div><span>preview.html</span><span class="g git-a">A</span></div>
+        </div>
+      </div>
+      <div class="maincol">
+        <div class="tabstrip">
+          <span class="tb on">scheduler.py <span class="x">✕</span></span>
+          <span class="tb mod">retry.rs <span class="x">●</span></span>
+          <span class="tb">Circle.cs <span class="x">✕</span></span>
+        </div>
+        <div class="crumb">src <span class="t">▸ Scheduler</span> <span class="f">▸ submit</span></div>
+        <div class="minied">
+<div class="l">    <span class="kw b">def</span> <span class="fndecl b">submit</span><span class="pn">(</span><span class="slf">self</span><span class="pn">,</span> <span class="prm">payload</span><span class="pn">,</span> <span class="prm">priority</span><span class="op">:</span> <span class="tyb">int</span> <span class="op">=</span> <span class="num">5</span><span class="pn">):</span></div>
+<div class="l">        <span class="kw b">if</span> <span class="kw">not</span> <span class="num">0</span> <span class="op">&lt;=</span> <span class="prm">priority</span> <span class="op">&lt;=</span> <span class="vr">PRIORITY_MAX</span><span class="pn">:</span></div>
+<div class="l">            <span class="kw b">raise</span> <span class="ty">ValueError</span><span class="pn">(</span><span class="str">f"out of range: </span><span class="pn">{</span><span class="prm">priority</span><span class="fmt">!r</span><span class="pn">}</span><span class="str">"</span><span class="pn">)</span></div>
+<div class="l">        <span class="sqe">undeclared_call</span><span class="pn">(</span><span class="vr">task</span><span class="pn">)</span>  <span class="cmt"># ← error squiggle</span></div>
+<div class="l">        <span class="vr">task</span><span class="pn">.</span><span class="sqw">legacy_method</span><span class="pn">()</span>       <span class="cmt"># ← warning squiggle</span></div>
+        </div>
+        <div class="panel">
+          <div class="ptabs"><span class="on">TERMINAL</span><span>PROBLEMS</span><span>OUTPUT</span></div>
+          <div class="term">
+            <div><span style="color:var(--gitadd)">➜</span> python -m pytest <span style="color:var(--termfg)">tests/</span></div>
+            <div><span style="color:var(--wberr)">FAILED</span> <span style="color:var(--termfg)">test_retry.py::test_backoff</span> <span style="color:var(--wbwarn)">2 warnings</span></div>
+            <div class="ansi">
+              <span style="color:var(--tred)">red</span><span style="color:var(--tgreen)">green</span><span style="color:var(--tyellow)">yellow</span><span style="color:var(--tblue)">blue</span><span style="color:var(--tmagenta)">magenta</span><span style="color:var(--tcyan)">cyan</span>
+              <span style="color:var(--tbred)">br-red</span><span style="color:var(--tbyellow)">br-yellow</span><span style="color:var(--tbblue)">br-blue</span><span style="color:var(--tbmagenta)">br-magenta</span>
+            </div>
+          </div>
+        </div>
+        <div class="statusbar">
+          <div class="grp"><span>⎇ main*</span><span class="e">✕ 1</span><span class="w">△ 2</span></div>
+          <div class="grp"><span>Ln 24, Col 12</span><span>UTF-8</span><span>Python</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="widgets">
+    <div class="wcard"><h4>按钮 / 链接 / 输入框焦点</h4>
+      <span class="btn">Primary</span> <span class="btn hov">Hover</span> <span class="btn ghost">Secondary</span>
+      <div style="margin:12px 0"><a class="lnk" href="#" onclick="return false">textLink.foreground</a> · <a class="lnk" href="#" onclick="return false"><b style="font-weight:400;color:var(--wblinkact)">active</b></a></div>
+      <input class="inp" value="focusBorder = blue dim" readonly>
+    </div>
+    <div class="wcard"><h4>列表状态</h4>
+      <div class="lst">
+        <div class="sel">activeSelection — <span class="hl">高亮匹配</span></div>
+        <div class="hov">hoverBackground</div>
+        <div>inactive item</div>
+      </div>
+    </div>
+    <div class="wcard"><h4>通知 / 诊断图标</h4>
+      <div class="notif"><span class="e">✕ Error</span><span class="w">△ Warning</span><span class="i">ℹ Info</span></div>
+      <div style="margin-top:10px;font-size:12px;color:var(--wbfgd)">git: <span class="git-a">added</span> · <span class="git-m">modified</span> · <span style="color:var(--gitdel)">deleted</span> · <span class="git-u">untracked</span> · <span style="color:var(--gitconf)">conflict</span></div>
+    </div>
+    <div class="wcard"><h4>diff 增 / 删 / 改</h4>
+      <div class="diffdemo">
+        <div class="a">+ added line — blue main</div>
+        <div class="d">- deleted line — pink dim</div>
+        <div class="c">~ changed line — gold dim</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+/* ---- single source of truth: role -> hex, per palette version ---- */
+const PALETTES = {
+  old: {
+    bg:'#111113', fg:'#aaaaaa', linebg:'#1d1d22', gutter:'#2e2e38',
+    comment:'#5c687c', keyword:'#7b8fad', keyword2:'#6a7d99',
+    fn:'#728aaa', fnb:'#8a9dbc', type:'#9ab0cc', typedecl:'#bec5d0',
+    typebuiltin:'#8299b3', iface:'#8aa0bf', typeparam:'#8299b3', ns:'#6a7d99',
+    macro:'#5e7088', string:'#b0969c', esc:'#6a5a60', fmt:'#907a82',
+    num:'#b89aa2', var:'#7c7c7c', varro:'#939393', param:'#8d8d8d', prop:'#858585',
+    mut:'#a08a90', self:'#9a848c', life:'#907a82', tag:'#907a82', attr:'#9a848c',
+    err:'#c08a90', warn:'#c4a888', info:'#8a9dbc', op:'#aaaaaa', punct:'#858585',
+    mdh1:'#c8cdd6', mdh2:'#9ab0cc', mdh3:'#8a9dbc', mdh4:'#7b8fad', mdh56:'#6a7d99',
+    mdbold:'#c8c8c8', mditalic:'#b0969c', mdcode:'#b0969c', mdlink:'#8a9dbc',
+    diffadd:'#8a9dbc', diffdel:'#907a82', diffchg:'#7b8fad',
+    wbbg:'#111113', wbborder:'#22222a', wbfgd:'#444444', wbfg:'#8d8d8d', wbfga:'#b4b4b4',
+    wbselbg:'#22222a', wbselfg:'#b4b4b4', wbhover:'#18181c',
+    wblink:'#8a9dbc', wblinkact:'#9ab0cc', wbfocus:'#18181c',
+    wbbtnbg:'#252525', wbbtnhov:'#2b2b2b', wbbtnfg:'#aaaaaa',
+    wbbadgebg:'#222024', wbbadgefg:'#b4b4b4', wbmod:'#b0969c',
+    gitadd:'#8a9dbc', gitmod:'#b0969c', gitdel:'#626262', gituntr:'#8a9dbc', gitconf:'#c4a888',
+    wberr:'#c08a90', wbwarn:'#c4a888', wbinfo:'#8a9dbc', termfg:'#939393',
+    tred:'#b0808a', tgreen:'#688a70', tyellow:'#b89a70', tblue:'#7b8fad',
+    tmagenta:'#907a8a', tcyan:'#688a98',
+    tbred:'#c08a90', tbyellow:'#c4a888', tbblue:'#8a9dbc', tbmagenta:'#a08a9a'
+  },
+  new: {
+    bg:'#111113', fg:'#aaaaaa', linebg:'#1d1d22', gutter:'#2e2e38',
+    comment:'#5f7695', keyword:'#7c94b6', keyword2:'#5f7695',
+    fn:'#7c94b6', fnb:'#9bb3d4', type:'#9bb3d4', typedecl:'#bccee6',
+    typebuiltin:'#7c94b6', iface:'#9bb3d4', typeparam:'#7c94b6', ns:'#5f7695',
+    macro:'#b6a47c', string:'#d49bae', esc:'#95855f', fmt:'#95855f',
+    num:'#d4c39b', var:'#7c7c7c', varro:'#939393', param:'#8d8d8d', prop:'#858585',
+    mut:'#b67c8f', self:'#b67c8f', life:'#5f7695', tag:'#9bb3d4', attr:'#b6a47c',
+    err:'#db7698', warn:'#b6a47c', info:'#9bb3d4', op:'#aaaaaa', punct:'#858585',
+    mdh1:'#e6d9bc', mdh2:'#d4c39b', mdh3:'#b6a47c', mdh4:'#95855f', mdh56:'#95855f',
+    mdbold:'#c8c8c8', mditalic:'#b67c8f', mdcode:'#d49bae', mdlink:'#9bb3d4',
+    diffadd:'#9bb3d4', diffdel:'#b67c8f', diffchg:'#b6a47c',
+    wbbg:'#111113', wbborder:'#22222a', wbfgd:'#444444', wbfg:'#8d8d8d', wbfga:'#b4b4b4',
+    wbselbg:'#22222a', wbselfg:'#b4b4b4', wbhover:'#18181c',
+    wblink:'#9bb3d4', wblinkact:'#bccee6', wbfocus:'#7c94b6',
+    wbbtnbg:'#7c94b6', wbbtnhov:'#9bb3d4', wbbtnfg:'#111113',
+    wbbadgebg:'#222024', wbbadgefg:'#b4b4b4', wbmod:'#b6a47c',
+    gitadd:'#9bb3d4', gitmod:'#b6a47c', gitdel:'#b67c8f', gituntr:'#7c94b6', gitconf:'#d4c39b',
+    wberr:'#db7698', wbwarn:'#b6a47c', wbinfo:'#9bb3d4', termfg:'#939393',
+    tred:'#db7698', tgreen:'#688a70', tyellow:'#d4c39b', tblue:'#7c94b6',
+    tmagenta:'#b67c8f', tcyan:'#688a98',
+    tbred:'#e6bcca', tbyellow:'#e6d9bc', tbblue:'#9bb3d4', tbmagenta:'#d49bae'
+  }
+};
+
+/* rows for the mapping table: [label, css-var key, note] */
+const MAP_ROWS = [
+  ['注释 comment','comment','蓝 faint（旧为灰蓝，新更蓝）'],
+  ['关键字 keyword','keyword','蓝 dim'],
+  ['plainKeyword / magic 函数','keyword2','蓝 faint'],
+  ['函数 / 方法引用','fn','蓝 dim'],
+  ['内置 / 库函数','fnb','蓝 main'],
+  ['类型引用 class/struct','type','蓝 main'],
+  ['类型声明名（bold）','typedecl','蓝 bright'],
+  ['内置类型 int/u32/double','typebuiltin','蓝 dim'],
+  ['接口 / trait / concept','iface','蓝 main + italic'],
+  ['类型参数','typeparam','蓝 dim + italic'],
+  ['命名空间 / 模块','ns','蓝 faint'],
+  ['宏 / 装饰器 / 特性 / 预处理','macro','粉灰 → 金 dim（gold-wide 决策）'],
+  ['字符串','string','灰粉 → 粉 main（最明显的变化）'],
+  ['转义 / 格式化占位符','esc','暗粉 → 金 faint'],
+  ['数字 / 布尔 / 枚举成员 / null','num','粉 → 金 main（划入金族）'],
+  ['self / this / cls','self','粉 dim'],
+  ['Rust 可变变量 / 参数','mut','粉 dim'],
+  ['生命周期','life','粉灰 → 蓝 faint（归结构族）'],
+  ['HTML 标签名','tag','粉灰 → 蓝 main'],
+  ['HTML 属性名','attr','粉灰 → 金 dim'],
+  ['错误 / invalid','err','粉族警报色（提饱和）'],
+  ['警告','warn','琥珀 → 金 dim'],
+  ['Markdown 标题 H1','mdh1','蓝白 → 金 bright'],
+  ['diff 增 / 删 / 改','diffadd','蓝 main / 粉 dim / 金 dim'],
+  ['工作台链接','wblink','蓝 main'],
+  ['focusBorder','wbfocus','近黑 → 蓝 dim（可见焦点框）'],
+  ['按钮背景','wbbtnbg','深灰 → 蓝 dim（前景反色 #111113）'],
+  ['tab 修改标记 / settings 指示','wbmod','粉 → 金 dim（与 diff-changed 一致）'],
+  ['git modified','gitmod','粉 → 金 dim'],
+  ['终端 ansiRed','tred','警报粉'],
+  ['终端 ansiYellow','tyellow','金 main']
+];
+
+function applyPalette(name) {
+  const p = PALETTES[name];
+  for (const k in p) document.documentElement.style.setProperty('--' + k, p[k]);
+  document.querySelectorAll('code[data-role]').forEach(el => { el.textContent = p[el.dataset.role] || ''; });
+  document.querySelectorAll('#paletteSeg button').forEach(b => b.classList.toggle('on', b.dataset.p === name));
+}
+
+/* build mapping table (old vs new chips) */
+const mapBody = document.getElementById('mapBody');
+for (const [label, key, note] of MAP_ROWS) {
+  const tr = document.createElement('tr');
+  const ov = PALETTES.old[key], nv = PALETTES.new[key];
+  tr.innerHTML =
+    '<td class="role">' + label + '</td>' +
+    '<td><span class="minichip"><span class="dot" style="background:' + ov + '"></span><code>' + ov + '</code></span></td>' +
+    '<td><span class="minichip"><span class="dot" style="background:' + nv + '"></span><code>' + nv + '</code></span></td>' +
+    '<td>' + note + '</td>';
+  mapBody.appendChild(tr);
+}
+
+/* segmented controls */
+document.getElementById('paletteSeg').addEventListener('click', e => {
+  if (e.target.dataset.p) applyPalette(e.target.dataset.p);
+});
+document.getElementById('tabSeg').addEventListener('click', e => {
+  const t = e.target.dataset.t; if (!t) return;
+  document.querySelectorAll('#tabSeg button').forEach(b => b.classList.toggle('on', b === e.target));
+  document.querySelectorAll('section.page').forEach(s => s.classList.toggle('on', s.id === 'pg-' + t));
+});
+document.getElementById('langPills').addEventListener('click', e => {
+  const l = e.target.dataset.l; if (!l) return;
+  document.querySelectorAll('#langPills button').forEach(b => b.classList.toggle('on', b === e.target));
+  ['cs','cpp','rs','py'].forEach(x => {
+    document.getElementById('ed-' + x).style.display = x === l ? '' : 'none';
+  });
+});
+
+applyPalette('new');
+</script>
+</body>
+</html>

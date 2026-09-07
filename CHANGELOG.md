@@ -2,6 +2,17 @@
 
 All notable changes to the **Monochrome Dew** theme will be documented in this file.
 
+## [1.2.0] - 2026-09-07
+
+### Changed
+- Recolored the theme around three hue families on the unchanged near-black base: **blue** (structure: keywords, types, functions, modules, lifetimes), **pink** (data: strings, `self`/`this`, mutable variables), and **gold** (rare: numbers, booleans, enum members, macros, attributes, warnings)
+- All hue families now share one lightness ramp (faint/dim/main/bright) with 28–45% saturation, replacing the previous ~15% tinted-gray accents
+- Errors use an alarm pink `#db7698`; warnings use gold; diff and git decorations follow the family mapping (added = blue, deleted = pink, modified = gold)
+- Workbench chrome stays neutral gray with blue as the single UI accent (links, focus border, buttons, progress bar); terminal ANSI red/yellow/blue/magenta aligned to the families
+- Markdown headings moved from the blue hierarchy to a gold hierarchy
+
+### Added
+- `preview.html` — single-file palette preview with old/new comparison
 ## [1.1.0] - 2026-09-04
 
 ### Changed
